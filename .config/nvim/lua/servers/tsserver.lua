@@ -17,5 +17,7 @@ require("flutter-tools").setup({}) -- use defaults
 --     },
 --   },
 -- })
+require("lspconfig").solidity_ls.setup({})
+require("lspconfig").solidity.setup({})
 require("lspconfig").solc.setup({})
 -- require("lspconfig").denols.setup({})

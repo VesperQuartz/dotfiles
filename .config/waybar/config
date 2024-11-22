@@ -208,8 +208,8 @@
     "on-click": "sirula",
     "return-type": "json",
     "format-icons": {
-      "arch": " ",
-      "default": " "
+      "arch": "  ",
+      "default": "  "
     }
   },
   "custom/notification": {

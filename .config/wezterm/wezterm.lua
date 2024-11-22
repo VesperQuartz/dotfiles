@@ -14,6 +14,7 @@ wezterm.on("restore_session", function(window)
 end)
 
 return {
+	max_fps = 240,
 	font_shaper = "Harfbuzz",
 	font = wezterm.font("MonaspiceNe NFP", { weight = "Regular", italic = false }),
 	term = "wezterm",

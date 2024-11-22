@@ -1,4 +1,5 @@
 return {
+	{ "nvim-telescope/telescope-media-files.nvim", lazy = false },
 	{
 		"folke/ts-comments.nvim",
 		opts = {},
@@ -12,7 +13,7 @@ return {
 	},
 	{ "echasnovski/mini.nvim", version = "*" },
 	"p00f/clangd_extensions.nvim",
-	"github/copilot.vim",
+	{ "github/copilot.vim", lazy = false },
 	"petertriho/cmp-git",
 	{
 		"neovim/nvim-lspconfig",
@@ -47,13 +48,14 @@ return {
 	"nanotee/sqls.nvim",
 	"nvim-lua/lsp-status.nvim",
 	"nvim-lua/plenary.nvim",
-	"hood/popui.nvim",
+	{ "hood/popui.nvim", lazy = false },
 	{ "kdheepak/lazygit.nvim", lazy = false },
 	"nvim-treesitter/playground",
 	"onsails/lspkind-nvim",
 	"udalov/kotlin-vim",
 	{
 		"akinsho/bufferline.nvim",
+		lazy = false,
 		version = "*",
 		dependencies = "nvim-tree/nvim-web-devicons",
 	},

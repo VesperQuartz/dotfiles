@@ -30,7 +30,8 @@ export default fp(
   {
     dependencies: ["env"],
   },
-);EOF
+);
+EOF
 
 cat <<-EOF >./src/plugins/cors.ts
 import fp from "fastify-plugin";
@@ -116,12 +117,12 @@ EOF
 
 cat <<-EOF >./src/plugins/database.ts
 import { drizzle, NodePgDatabase } from "drizzle-orm/node-postgres";
-import { Pool } from "pg";
+import pkg from "pg";
 import fp from "fastify-plugin";
 import * as schema from "../models/schema.js";
 
 export default fp(async (fastify) => {
-  const pool = new Pool({
+  const pool = new pkg.Pool({
     connectionString: fastify.config.DATABASE_URL,
   });
   const db = drizzle(pool, { schema });
@@ -134,7 +135,7 @@ export default fp(async (fastify) => {
 declare module "fastify" {
   export interface FastifyInstance {
     db: NodePgDatabase<typeof schema> & {
-      \$client: Pool;
+      \$client: pkg.Pool;
     };
   }
 }
@@ -228,7 +229,7 @@ const root: FastifyPluginAsyncZod = async function (fastify, _opts) {
 export default root;
 EOF
 
-mkdir .src/models
+mkdir ./src/models
 cat <<-EOF >./src/models/root.models.ts
 import fp from "fastify-plugin";
 export default fp(async (fastify) => {
@@ -360,7 +361,7 @@ EOF
 cat <<-EOF >./compose.yaml
 ---
 services:
-  db:
+  ${1}-db:
     image: postgres:16.3-alpine3.20
     env_file:
       - .env

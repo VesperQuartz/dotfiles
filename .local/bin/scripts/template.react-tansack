@@ -33,7 +33,8 @@ const rootElement = document.getElementById("root")!;
 if (!rootElement.innerHTML) {
   const root = ReactDOM.createRoot(rootElement);
   root.render(<RouterProvider router={router} />);
-}EOF
+}
+EOF
 
 cat <<-EOF >./tsconfig.json
 {
@@ -178,10 +179,8 @@ export const Route = createFileRoute('/about')({
 function ExampleComponent() {
   return (
     <div className="p-2">
-      <h3>About</h3>
+      <h3>Example Route</h3>
     </div>
   )
 }
-
 EOF
-import * as React from 'react'

@@ -19,7 +19,7 @@ alias rsync='rsync --progress -h'
 alias _i='sudo -i'
 alias please='sudo'
 alias rcopy='rsync -ah --progress'
-alias cast='asciinema play'
+# alias cast='asciinema play'
 alias mouse='sudo modprobe -r psmouse && sudo modprobe psmouse'
 alias svn="svn --config-dir $XDG_CONFIG_HOME/subversion"
 alias wget=wget --hsts-file="$XDG_DATA_HOME/wget-hsts"
