@@ -92,11 +92,13 @@ export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init --path)"
 
 plugins=(
+  mix
   zbell
   command-not-found
   vi-mode
   zsh-autosuggestions
   zsh-syntax-highlighting
+  zig-shell-completions
   colorize
   history
   history-substring-search
@@ -105,6 +107,7 @@ plugins=(
   nodenv
   systemadmin
   rsync
+  aws
   thefuck
   virtualenv
   archlinux

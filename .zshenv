@@ -131,3 +131,4 @@ export XDG_CACHE_HOME=$HOME/.cache
 export SRC_ENDPOINT=https://sourcegraph.com
 export SRC_ACCESS_TOKEN=sgp_a0d7ccb4f752ea73_fb98e60a58013683feb2c1ca0303666cc8a8a29a
 export PATH="/home/brown/.local/share/solana/install/active_release/bin:$SCRIPTS:$HOME/.amplify/bin:$PATH"
+export AWS_ID=824636437844

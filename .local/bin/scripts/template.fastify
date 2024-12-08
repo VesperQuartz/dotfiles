@@ -7,10 +7,11 @@ FASTIFY_ADDRESS=0.0.0.0
 NODE_ENV=development
 FASTIFY_OPTIONS=true
 COOKIE_SECRET=$(openssl rand -base64 32)
+JWT_SECRET=$(openssl rand -base64 32)
 DATABASE_URL=""
 EOF
 
-cat <<-EOF >./src/plugins/cookie.ts
+cat <<-EOF >./src/plugins/external/cookie.ts
 import fp from "fastify-plugin";
 import fastifyCookie, { FastifyCookieOptions } from "@fastify/cookie";
 
@@ -33,7 +34,7 @@ export default fp(
 );
 EOF
 
-cat <<-EOF >./src/plugins/cors.ts
+cat <<-EOF >./src/plugins/external/cors.ts
 import fp from "fastify-plugin";
 import cors from "@fastify/cors";
 
@@ -50,7 +51,7 @@ export default fp(async (fastify) => {
 });
 EOF
 
-cat <<-EOF >./src/plugins/csrf.ts
+cat <<-EOF >./src/plugins/external/csrf.ts
 import fp from "fastify-plugin";
 import fastifyCsrf from "@fastify/csrf-protection";
 
@@ -59,7 +60,7 @@ export default fp(async (fastify) => {
 });
 EOF
 
-cat <<-EOF >./src/plugins/env.ts
+cat <<-EOF >./src/plugins/external/env.ts
 import fp from "fastify-plugin";
 import fastifyEnv from "@fastify/env";
 
@@ -115,7 +116,7 @@ declare module "fastify" {
 }
 EOF
 
-cat <<-EOF >./src/plugins/database.ts
+cat <<-EOF >./src/plugins/external/database.ts
 import { drizzle, NodePgDatabase } from "drizzle-orm/node-postgres";
 import pkg from "pg";
 import fp from "fastify-plugin";
@@ -141,7 +142,7 @@ declare module "fastify" {
 }
 EOF
 
-cat <<-EOF >./src/plugins/helmet.ts
+cat <<-EOF >./src/plugins/external/helmet.ts
 import helmet from "@fastify/helmet"
 import fp from "fastify-plugin"
 export default fp(async (fastify) => {
@@ -149,18 +150,23 @@ export default fp(async (fastify) => {
 });
 EOF
 
-cat <<-EOF >./src/plugins/paseto.ts
+cat <<-EOF >./src/plugins/external/jwt.ts
 import fp from "fastify-plugin";
-import paseto from "paseto";
-const { V4: { sign, verify, generateKey }} = paseto; 
-export default fp(async (fastify) => {
-  fastify.decorate("pasetoSign", sign);
-  fastify.decorate("pasetoVerify", verify);
-  fastify.decorate("pasetoGenerateKey", generateKey);
-});
+import fastifyJwt from "@fastify/jwt";
+
+export default fp(
+  async (fastify) => {
+    await fastify.register(fastifyJwt, {
+      secret: fastify.config.JWT_SECRET,
+    });
+  },
+  {
+    dependencies: ["env"],
+  },
+);
 EOF
 
-cat <<-EOF >./src/plugins/rate.ts
+cat <<-EOF >./src/plugins/external/rate.ts
 import fp from "fastify-plugin";
 import fastifyRateLimit from "@fastify/rate-limit";
 
@@ -172,7 +178,7 @@ export default fp(async (fastify) => {
 });
 EOF
 
-cat <<-EOF >./src/plugins/redis.ts
+cat <<-EOF >./src/plugins/external/redis.ts
 import fp from "fastify-plugin";
 import fastifyRedis from "@fastify/redis";
 
@@ -185,7 +191,7 @@ export default fp(async (fastify) => {
 });
 EOF
 
-cat <<-EOF >./src/plugins/multipart.ts
+cat <<-EOF >./src/plugins/external/multipart.ts
 import fp from "fastify-plugin";
 import fastifyMultipart from "@fastify/multipart";
 
@@ -194,7 +200,7 @@ export default fp(async (fastify) => {
 });
 EOF
 
-cat <<-EOF >./src/plugins/socket.ts
+cat <<-EOF >./src/plugins/external/socket.ts
 import fp from "fastify-plugin";
 import fastifyWebsocket from "@fastify/websocket";
 
@@ -373,5 +379,33 @@ services:
       - 5432:5432
     volumes:
       - ./pgdata:/var/lib/postgres/data
+EOF
+
+cat <<-EOF >./tsconfig.json
+{
+  "extends": "fastify-tsconfig",
+  "compilerOptions": {
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ]
+    },
+    "outDir": "dist",
+    "sourceMap": false,
+    "baseUrl": "./",
+    "moduleResolution": "NodeNext",
+    "module": "NodeNext",
+    "target": "ES2022",
+    "esModuleInterop": true
+  },
+  "tsc-alias": {
+    "verbose": false,
+    "resolveFullPaths": true
+  },
+  "include": [
+    "src/**/*.ts",
+    "src"
+  ]
+}
 EOF
 echo "Fastify setup complete" || exit
