@@ -99,3 +99,7 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagn
 -- last
 vim.cmd([[ autocmd BufRead,BufNewFile *.org set filetype=org ]])
 vim.cmd([[ autocmd BufRead,BufNewFile *.org set filetype=org ]])
+vim.cmd([[
+autocmd BufWinLeave *.* mkview
+autocmd BufWinEnter *.* silent! loadview
+]])
