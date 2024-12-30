@@ -91,7 +91,7 @@ local servers = {
 	"prismals",
 	"move_analyzer",
 	"vtsls",
-	-- "denols",
+	"denols",
 }
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()

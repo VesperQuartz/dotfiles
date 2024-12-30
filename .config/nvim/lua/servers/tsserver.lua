@@ -20,4 +20,11 @@ require("flutter-tools").setup({}) -- use defaults
 require("lspconfig").solidity_ls.setup({})
 require("lspconfig").solidity.setup({})
 require("lspconfig").solc.setup({})
--- require("lspconfig").denols.setup({})
+require("lspconfig").denols.setup({})
+require("lspconfig").vtsls.setup({
+	single_file_support = false,
+	root_dir = function()
+		return not vim.fs.root(0, { "deno.json", "deno.jsonc" })
+			and vim.fs.root(0, { "tsconfig.json", "package.json", "jsconfig.json", "bun.lockb", ".git" })
+	end,
+})
