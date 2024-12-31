@@ -34,7 +34,7 @@ set.ignorecase = true
 set.smartcase = true
 
 --Decrease update time
-set.updatetime = 250
+set.updatetime = 200
 vim.wo.signcolumn = "yes"
 
 set.clipboard:prepend({ "unnamedplus" })
@@ -98,3 +98,18 @@ vim.cmd([[
 vim.g.markdown_fenced_languages = {
 	"ts=typescript",
 }
+
+vim.api.nvim_create_autocmd({
+	"WinScrolled", -- or WinResized on NVIM-v0.9 and higher
+	"BufWinEnter",
+	"CursorHold",
+	"InsertLeave",
+
+	-- include this if you have set `show_modified` to `true`
+	"BufModifiedSet",
+}, {
+	group = vim.api.nvim_create_augroup("barbecue.updater", {}),
+	callback = function()
+		require("barbecue.ui").update()
+	end,
+})

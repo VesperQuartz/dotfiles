@@ -82,11 +82,10 @@ local servers = {
 	"sqlls",
 	"intelephense",
 	"rust_analyzer",
-	-- "move_analyzer",
+	"move_analyzer",
 	"jedi_language_server",
 	"puppet",
 	"kotlin_language_server",
-	-- "typescript-tools",
 	"jdtls",
 	"prismals",
 	"move_analyzer",
@@ -101,6 +100,9 @@ for _, lsp in ipairs(servers) do
 		on_attach = function(client, bufnr)
 			if client.server_capabilities.inlayHintProvider then
 				vim.lsp.inlay_hint.enable(true, { bunfr = bufnr })
+			end
+			if client.server_capabilities["documentSymbolProvider"] then
+				require("nvim-navic").attach(client, bufnr)
 			end
 		end,
 		flags = lsp_flags,
