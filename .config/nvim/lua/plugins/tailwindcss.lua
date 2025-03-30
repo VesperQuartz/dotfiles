@@ -1,9 +1,8 @@
 return {
-	{ "norcalli/nvim-colorizer.lua" },
+	{ "norcalli/nvim-colorizer.lua", lazy = false },
 	{
 		"themaxmarchuk/tailwindcss-colors.nvim",
 		config = function()
-			-- pass config options here (or nothing to use defaults)
 			require("tailwindcss-colors").setup()
 		end,
 	},

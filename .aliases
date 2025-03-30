@@ -1,6 +1,5 @@
 # Example aliases
-alias bat="bat --no-pager"
-alias hx=helix
+alias bat="bat --no-pager -p"
 alias nvim=nvim
 alias qbittorrent='QT_SCALE_FACTOR_ROUNDING_POLICY=Round qbittorrent'
 alias nin="echo 31021805010|wl-copy"

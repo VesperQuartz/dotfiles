@@ -1,5 +1,4 @@
 [manager]
-sort_by = "modified"
 sort_reverse = true
 sort_dir_first = true
 linemode = "mtime"
@@ -55,6 +54,12 @@ prepend_previewers = [
   { mime = "text/csv", run = "miller" },
 ]
 append_previewers = [{ name = "*", run = "hexyl" }]
+
+[[plugin.prepend_fetchers]]
+id = "mime"
+name = "*"
+run = "mime-ext"
+prio = "high"
 
 [[manager.prepend_keymap]]
 on = "!"

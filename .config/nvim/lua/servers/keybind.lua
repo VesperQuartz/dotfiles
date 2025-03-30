@@ -49,7 +49,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
 local opts = { noremap = true, silent = true }
 local lsp_flags = {
-	-- This is the default in Nvim 0.7+
 	debounce_text_changes = 150,
 }
 
@@ -92,22 +91,6 @@ local servers = {
 	"vtsls",
 	"denols",
 }
-
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-for _, lsp in ipairs(servers) do
-	require("lspconfig")[lsp].setup({
-		capabilities = capabilities,
-		on_attach = function(client, bufnr)
-			if client.server_capabilities.inlayHintProvider then
-				vim.lsp.inlay_hint.enable(true, { bunfr = bufnr })
-			end
-			if client.server_capabilities["documentSymbolProvider"] then
-				require("nvim-navic").attach(client, bufnr)
-			end
-		end,
-		flags = lsp_flags,
-	})
-end
 
 --source lua & vim
 --map("n", "<leader>")

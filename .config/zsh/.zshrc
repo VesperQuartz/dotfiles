@@ -15,6 +15,7 @@ source "${HOME}/.config/zsh/${Z_THEME}"
 
 
 autoload bashcompinit
+autoload -Uz tetriscurses
 bashcompinit
 
 
@@ -87,10 +88,10 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init --path)"
-
+# export PYENV_ROOT="$HOME/.pyenv"
+# export PATH="$PYENV_ROOT/bin:$PATH"
+# eval "$(pyenv init --path)"
+source /usr/share/doc/find-the-command/ftc.zsh
 plugins=(
   mix
   zbell
@@ -113,6 +114,7 @@ plugins=(
   archlinux
   direnv
   copypath
+  gitignore
   colored-man-pages
 )
 source $ZSH/oh-my-zsh.sh
@@ -159,7 +161,7 @@ typeset -aU path
 
 export WINEPREFIX="$XDG_DATA_HOME"/wine
 export RUST=${HOME}/.cargo/bin
-export HISTFILE="$XDG_STATE_HOME"/zsh/history
+export HISTFILE="$XDG_STATE_HOME"/zsh/histoy
 export RUSTUP_HOME="$XDG_DATA_HOME"/rustup
 export PATH=/usr/local/bin:$JDTLS_HOME:$GO:$LTEX:$GEM:$TOMCAT:$SCALA_BIN:$LOCAL_BIN:$QT5:$RUST:$VSCodium:$VIMRUNTIME:$ANDROID_HOME:$ANDROID_EMULATOR_HOME:$ANDROID_PREFS_ROOT/build-tools/29.0.3:$P4MERGE:$JAVA_JDK:$ANDROID_PREFS_ROOT/emulator/:$LOCAL_BIN:$ANDROID_PREFS_ROOT/system-images/:$SASS:$DART:$ROBO_3T:$NODE:$GROOVY_BIN:$GRADEL_BIN:/usr/bin:/bin:/usr/local/games:/usr/games:$HOME/.local/bin:/usr/share/games:/usr/local/sbin:/usr/sbin:/sbin:~/.local/bin:/usr/local/lib/nodejs/bin:/snap/bin:$MVN_HOME:$MVN_BIN:~/.config/composer/vendor/bin:$STUDIO_HOME:$PATH
 
@@ -553,3 +555,6 @@ if [ -f '/home/brown/app/google-cloud-sdk/path.zsh.inc' ]; then . '/home/brown/a
 # The next line enables shell command completion for gcloud.
 if [ -f '/home/brown/app/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/brown/app/google-cloud-sdk/completion.zsh.inc'; fi
 source "$HOME/dprint_completion"
+setopt EXTENDED_HISTORY
+fpath=(/home/brown/.local/share/zsh-completion/completions $fpath) # avalanche completion
+rm -f ~/.zcompdump; compinit # avalanche completion

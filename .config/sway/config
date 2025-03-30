@@ -33,12 +33,12 @@ output HDMI-A-1 resolution 1920x1080@60hz
 output HDMI-A-1 scale 1.5
 output HDMI-A-1 pos 1280 0
 # output HDMI-A-1 transform 270
-output HDMI-A-1 background /home/brown/.local/share/wallpapers/wallpaperflare.com_wallpaper16.jpg fill
+output HDMI-A-1 background /home/brown/.local/share/wallpapers/wall/wallhaven-wezyqx.jpg fill
 #
 # You can get the names of your outputs by running: swaymsg -t get_outputs
 output eDP-1 scale 1.2
 # focus output HDMI-A-1
-output eDP-1 background /home/brown/.local/share/wallpapers/wallpaperflare.com_wallpaper16.jpg fill
+output eDP-1 background /home/brown/.local/share/wallpapers/wall/wallhaven-wezyqx.jpg fill
 #output eDP-1 background /home/brown/Downloads/arch-journey-dark.png fill
 ### Idle configuration
 #
@@ -68,7 +68,7 @@ bindsym $mod+x exec slock
 
 # Example configuration:
 #
-input "1267:12448:ELAN072B:00_04F3:30A0_Touchpad" {
+input "1739:52744:SYNA30D2:00_06CB:CE08" {
     dwt enabled
     tap enabled
     natural_scroll enabled
@@ -83,6 +83,13 @@ input "1:1:AT_Translated_Set_2_keyboard" {
 input "7847:102:2.4G_Mouse" {
     middle_emulation enabled
     dwt enabled
+}
+
+input "12625:4128:YICHIP_2.4G_Receiver_Consumer_Control" {
+    dwt enabled
+    tap enabled
+    natural_scroll enabled
+    middle_emulation enabled
 }
 
 input type:keyboard xkb_numlock enabled
@@ -135,6 +142,7 @@ assign [app_id="^Alacritty$"] 2
 assign [app_id="^evince$"] 6
 assign [app_id="^figma-linux$"] 10
 assign [app_id="^firefox$"] 1
+assign [app_id="^firedragon$"] 1
 assign [app_id="^zen-alpha$"] 1
 assign [app_id="^firefoxdeveloperedition$"] 1
 assign [app_id="^google-chrome$"] 1
@@ -161,6 +169,7 @@ assign [class="^Caja$"] 3
 assign [class="^chromium$"] 1
 assign [class="^Google-chrome-unstable$"] 1
 assign [class="^waterfox$"] 1
+assign [class="^firedragon$"] 1
 assign [class="^Eclipse$"] 4
 assign [class="^FireFox$"] 1
 assign [class="^Foxit Reader$"] 6
@@ -207,6 +216,8 @@ for_window [app_id="zoom" title="Settings"] floating enable, floating_minimum_si
 for_window [app_id="zoom" title="Zoom Meeting(.*)?"] workspace next_on_output --create, move container to workspace current, floating disable, inhibit_idle open
 for_window [app_id="zoom" title="^(Zoom|About)$"] border pixel, floating enable
 for_window [class="^Google-chrome"] border none
+for_window [class="^Emulator" title="Android Emulator - mrlectus:5554"] border none, floating disable
+for_window [class="^Emulator" title="Emulator"] border none, floating disable, resize set 10 20
 for_window [class="^bruno$"] opacity $opacity
 for_window [class="^discord$"] opacity $opacity, border none
 for_window [class="^kitty$"] opacity $opacity
@@ -216,6 +227,7 @@ for_window [class="scrcpy"] border none, floating enable, move position 75ppt 0
 for_window [class="^Spotify$"] opacity $opacity, floating enable, floating_minimum_size 760 x 400, border none
 
 exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
+exec hash dbus-update-activation-environment 2>/dev/null && \
 exec hash dbus-update-activation-environment 2>/dev/null && \
      dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
 exec_always /home/brown/.config/sway/script.sh
@@ -269,11 +281,10 @@ bindsym $mod+r reload
 bindsym --locked XF86MonBrightnessDown exec xbacklight -dec 10
 bindsym --locked XF86MonBrightnessUp exec xbacklight -inc 10
 
-bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
-bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
-bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
-bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
-
+bindsym XF86AudioRaiseVolume exec wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+
+bindsym XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
+bindsym XF86AudioMute exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+bindsym XF86AudioMicMute exec wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
 # Moving around:
 #
 # Move your focus around

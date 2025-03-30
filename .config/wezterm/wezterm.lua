@@ -14,10 +14,39 @@ wezterm.on("restore_session", function(window)
 end)
 
 return {
-	max_fps = 240,
+	max_fps = 120,
+	enable_kitty_graphics = true,
 	font_shaper = "Harfbuzz",
-	font = wezterm.font("MonaspiceNe NFP", { weight = "Regular", italic = false }),
-	term = "wezterm",
+	font = wezterm.font({ family = "MonaspiceNe NF" }),
+	font_rules = {
+		{
+			intensity = "Bold",
+			italic = true,
+			font = wezterm.font({
+				family = "MonaspiceRn NF",
+				weight = "Bold",
+				style = "Italic",
+			}),
+		},
+		{
+			italic = true,
+			intensity = "Half",
+			font = wezterm.font({
+				family = "MonaspiceRn NF",
+				weight = "DemiBold",
+				style = "Italic",
+			}),
+		},
+		{
+			italic = true,
+			intensity = "Normal",
+			font = wezterm.font({
+				family = "MonaspiceRn NF",
+				style = "Italic",
+			}),
+		},
+	},
+	term = "xterm-kitty",
 	color_scheme = "Dracula+",
 	colors = {
 		visual_bell = "#202020",
@@ -118,17 +147,6 @@ return {
 		"ss07",
 		"ss08",
 		"zero",
-	},
-	font_rules = {
-		{
-			italic = false,
-			intensity = "Normal",
-			font = wezterm.font("MonaspiceNe NFP", { weight = "Regular" }),
-		},
-		{
-			italic = true,
-			font = wezterm.font("MonaspiceRn NFP", { weight = "Black" }),
-		},
 	},
 	visual_bell = {
 		fade_in_duration_ms = 75,

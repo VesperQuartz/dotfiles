@@ -1,4 +1,5 @@
 --sponsorblock-remove all
+--cookies-from-browser chrome
 --write-subs
 --sub-langs "en.*"
 --write-auto-subs

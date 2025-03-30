@@ -15,10 +15,7 @@ return {
 	"p00f/clangd_extensions.nvim",
 	{ "github/copilot.vim", lazy = false },
 	"petertriho/cmp-git",
-	{
-		"neovim/nvim-lspconfig",
-		inlay_hints = { enabled = true },
-	},
+	{ "rafamadriz/friendly-snippets", lazy = false },
 	"folke/lsp-colors.nvim",
 	"mfussenegger/nvim-dap",
 	{ "rcarriga/nvim-dap-ui", dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" } },
