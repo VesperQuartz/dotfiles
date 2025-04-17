@@ -12,7 +12,7 @@ local tscope = require("telescope.builtin")
 -- Global mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 map("n", "<space>e", vim.diagnostic.open_float)
-map("n", "[d", vim.diagnostic.goto_prev)
+map("n", "[d", vim.diagnostic.get_prev)
 map("n", "]d", vim.diagnostic.goto_next)
 map("n", "<space>q", vim.diagnostic.setloclist)
 
@@ -50,46 +50,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
 local opts = { noremap = true, silent = true }
 local lsp_flags = {
 	debounce_text_changes = 150,
-}
-
-local servers = {
-	"marksman",
-	"ansiblels",
-	"dockerls",
-	"lua_ls",
-	"zls",
-	"awk_ls",
-	"solidity_ls",
-	"solidity",
-	"solc",
-	"taplo",
-	"vimls",
-	"bashls",
-	"clangd",
-	"tailwindcss",
-	"texlab",
-	"elixirls",
-	"hls",
-	"html",
-	"astro",
-	"svelte",
-	"docker_compose_language_service",
-	"dartls",
-	"cssls",
-	"phpactor",
-	"gopls",
-	"sqlls",
-	"intelephense",
-	"rust_analyzer",
-	"move_analyzer",
-	"jedi_language_server",
-	"puppet",
-	"kotlin_language_server",
-	"jdtls",
-	"prismals",
-	"move_analyzer",
-	"vtsls",
-	"denols",
 }
 
 --source lua & vim

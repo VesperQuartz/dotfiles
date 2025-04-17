@@ -1,6 +1,5 @@
 return {
 	"saghen/blink.cmp",
-	dependencies = { "rafamadriz/friendly-snippets", "echasnovski/mini.snippets" },
 
 	version = "1.*",
 	---@module 'blink.cmp'
@@ -22,11 +21,6 @@ return {
 			preset = "enter",
 			["<S-Tab>"] = { "select_prev", "fallback" },
 			["<Tab>"] = { "select_next", "fallback" },
-			["<C-space>"] = {
-				function(cmp)
-					cmp.show({ providers = { "snippets" } })
-				end,
-			},
 		},
 
 		appearance = {
@@ -37,7 +31,13 @@ return {
 
 		-- (Default) Only show the documentation popup when manually triggered
 		completion = {
-			documentation = { auto_show = true, window = { border = "single" } },
+			documentation = { treesitter_highlighting = true, auto_show = true, window = { border = "single" } },
+			accept = {
+				-- experimental auto-brackets support
+				auto_brackets = {
+					enabled = true,
+				},
+			},
 			menu = {
 				draw = {
 					components = {
@@ -63,19 +63,45 @@ return {
 				},
 			},
 		},
+		cmdline = {
+			enabled = true,
+			completion = {
+				ghost_text = { enabled = true },
+				menu = {
+					auto_show = true,
+				},
+			},
+		},
+
 		signature = { window = { border = "single" }, enabled = true },
 
 		-- Default list of enabled providers defined so that you can extend it
 		-- elsewhere in your config, without redefining it, due to `opts_extend`
 		sources = {
-			default = { "lsp", "path", "snippets", "buffer" },
+			default = { "lsp", "buffer", "path" },
 			per_filetype = { sql = { "dadbod" } },
 			providers = {
 				dadbod = { module = "vim_dadbod_completion.blink" },
+				path = {
+					module = "blink.cmp.sources.path",
+					score_offset = 3,
+					fallbacks = { "buffer" },
+					opts = {
+						trailing_slash = true,
+						label_trailing_slash = true,
+						get_cwd = function(context)
+							return vim.fn.expand(("#%d:p:h"):format(context.bufnr))
+						end,
+						show_hidden_files_by_default = true,
+					},
+				},
 			},
+			transform_items = function(_, items)
+				return vim.tbl_filter(function(item)
+					return item.kind ~= require("blink.cmp.types").CompletionItemKind.Snippet
+				end, items)
+			end,
 		},
-		snippets = { preset = "mini_snippets" },
-
 		-- (Default) Rust fuzzy matcher for typo resistance and significantly better performance
 		-- You may use a lua implementation instead by using `implementation = "lua"` or fallback to the lua implementation,
 		-- when the Rust fuzzy matcher is not available, by using `implementation = "prefer_rust"`

@@ -112,6 +112,7 @@ export PATH=$HOME/bin:/usr/local/bin:$PATH
 export QT5=/usr/local/qt5/bin
 export QT_SCALE_FACTOR=1.2
 export QT_QPA_PLATFORM="wayland;xcb"
+export IOTA="$HOME/.local/bin/iota"
 export _JAVA_AWT_WM_NONREPARENTING=1
 export QT_QPA_PLATFORMTHEME="qt6ct"
 export QT_AUTO_SCREEN_SCALE_FACTOR=0
@@ -125,7 +126,7 @@ export RANGER_LOAD_DEFAULT_RC=false
 export PATH="$PATH":"$HOME/.pub-cache/bin"
 eval "$(pyenv init --path)"
 export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
+export PATH="$BUN_INSTALL/bin:$IOTA:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export ZELLIJ_AUTO_ATTACH="true"
 export DOCKER_BUILDKIT=1

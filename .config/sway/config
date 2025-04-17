@@ -187,6 +187,7 @@ assign [class="^code-oss$"] 4
 assign [class="^Code$"] 4
 assign [class="^Spotify$"] 4
 assign [class="^discord$"] 9
+assign [class="^Cursor$"] 4
 assign [class="^figma-linux$"] 10
 assign [class="^firefox$"] 1
 assign [class="^firefoxdeveloperedition$"] 1
@@ -221,6 +222,7 @@ for_window [class="^Emulator" title="Emulator"] border none, floating disable, r
 for_window [class="^bruno$"] opacity $opacity
 for_window [class="^discord$"] opacity $opacity, border none
 for_window [class="^kitty$"] opacity $opacity
+for_window [class="^Cursor$"] opacity $opacity
 for_window [class="^postman$"] opacity $opacity
 for_window [class="^st-256color$"] opacity $opacity
 for_window [class="scrcpy"] border none, floating enable, move position 75ppt 0

@@ -15,7 +15,11 @@ return {
 	"p00f/clangd_extensions.nvim",
 	{ "github/copilot.vim", lazy = false },
 	"petertriho/cmp-git",
-	{ "rafamadriz/friendly-snippets", lazy = false },
+	{
+		"yanganto/move.vim",
+		branch = "sui-move",
+		lazy = false,
+	},
 	"folke/lsp-colors.nvim",
 	"mfussenegger/nvim-dap",
 	{ "rcarriga/nvim-dap-ui", dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" } },

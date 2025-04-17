@@ -1,8 +1,6 @@
 local lsp_status = require("lsp-status")
 --- require
-require("cmp").config.formatting = {
-	format = require("tailwindcss-colorizer-cmp").formatter,
-}
+
 require("servers..keybind")
 require("servers..bashls")
 require("servers..cssls")

@@ -32,7 +32,10 @@ return {
 			sqlls = {},
 			intelephense = {},
 			rust_analyzer = {},
-			move_analyzer = {},
+			move_analyzer = {
+				cmd = { os.getenv("HOME") .. "/.sui/bin/move-analyzer" },
+				filetypes = { "move" },
+			},
 			jedi_language_server = {},
 			puppet = {},
 			kotlin_language_server = {},
@@ -43,11 +46,12 @@ return {
 		},
 	},
 	config = function(_, opts)
+		local capabilities = {
+			textDocument = { completion = { completionItem = { snippetSupport = false } } },
+		}
 		local lspconfig = require("lspconfig")
 		for server, config in pairs(opts.servers) do
-			-- passing config.capabilities to blink.cmp merges with the capabilities in your
-			-- `opts[server].capabilities, if you've defined it
-			config.capabilities = require("blink.cmp").get_lsp_capabilities(config.capabilities)
+			config.capabilities = require("blink.cmp").get_lsp_capabilities(capabilities)
 			lspconfig[server].setup(config)
 		end
 	end,
