@@ -32,7 +32,7 @@ ytp() {
 }
 
 slock() {
-  systemctl suspend && ~/.config/sway/lockman.sh
+  ~/.config/sway/lockman.sh
 }
 #compdef glow
 

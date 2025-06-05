@@ -1,2 +1,2 @@
-require "lspconfig".phpactor.setup {}
-require "lspconfig".intelephense.setup {}
+vim.lsp.enable("phpactor")
+vim.lsp.enable("intelephense")

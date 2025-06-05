@@ -16,6 +16,7 @@ end)
 return {
 	max_fps = 120,
 	enable_kitty_graphics = true,
+	enable_wayland = true,
 	font_shaper = "Harfbuzz",
 	font = wezterm.font({ family = "MonaspiceNe NF" }),
 	font_rules = {
@@ -130,7 +131,6 @@ return {
 	window_background_opacity = 0.95,
 	text_background_opacity = 1.5,
 	enable_tab_bar = true,
-	enable_wayland = true,
 	exit_behavior_messaging = "None",
 	hyperlink_rules = wezterm.default_hyperlink_rules(),
 	font_size = 15,
@@ -166,6 +166,8 @@ return {
 			mods = "CMD",
 			action = wezterm.action.CloseCurrentPane({ confirm = false }),
 		},
+		{ key = "{", mods = "SHIFT|ALT", action = act.MoveTabRelative(-1) },
+		{ key = "}", mods = "SHIFT|ALT", action = act.MoveTabRelative(1) },
 		{ key = "t", mods = "ALT", action = act.SpawnTab("DefaultDomain") },
 		{ key = "S", mods = "LEADER", action = wezterm.action({ EmitEvent = "save_session" }) },
 		{ key = "L", mods = "LEADER", action = wezterm.action({ EmitEvent = "load_session" }) },

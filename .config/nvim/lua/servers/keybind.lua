@@ -12,8 +12,6 @@ local tscope = require("telescope.builtin")
 -- Global mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 map("n", "<space>e", vim.diagnostic.open_float)
-map("n", "[d", vim.diagnostic.get_prev)
-map("n", "]d", vim.diagnostic.goto_next)
 map("n", "<space>q", vim.diagnostic.setloclist)
 
 -- Use LspAttach autocommand to only map the following keys
@@ -102,6 +100,7 @@ map("v", "k", "gk", { silent = true })
 -- turn off search highlighting with <CR> (carriage-return)
 map("n", "<CR>", ":nohlsearch<CR><CR>", opts)
 map("n", "<F13>", ":NvimTreeToggle()<CR>", opts)
+map("n", "<S-F1>", ":NvimTreeToggle()<CR>", opts)
 
 -- Dashboard provides session support. With SessionLoad and SessionSave
 map("n", "<leader>ss", ":SessionSave<CR>", opts)

@@ -1,39 +1,23 @@
 return {
 	"saghen/blink.cmp",
+	dependencies = {
+		"Kaiser-Yang/blink-cmp-avante",
+		"giuxtaposition/blink-cmp-copilot",
+	},
 
 	version = "1.*",
 	---@module 'blink.cmp'
 	---@type blink.cmp.Config
 	opts = {
-		-- 'default' (recommended) for mappings similar to built-in completions (C-y to accept)
-		-- 'super-tab' for mappings similar to vscode (tab to accept)
-		-- 'enter' for enter to accept
-		-- 'none' for no mappings
-		--
-		-- All presets have the following mappings:
-		-- C-space: Open menu or open docs if already open
-		-- C-n/C-p or Up/Down: Select next/previous item
-		-- C-e: Hide menu
-		-- C-k: Toggle signature help (if signature.enabled = true)
-		--
-		-- See :h blink-cmp-config-keymap for defining your own keymap
 		keymap = {
 			preset = "enter",
 			["<S-Tab>"] = { "select_prev", "fallback" },
 			["<Tab>"] = { "select_next", "fallback" },
 		},
 
-		appearance = {
-			-- 'mono' (default) for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
-			-- Adjusts spacing to ensure icons are aligned
-			nerd_font_variant = "mono",
-		},
-
-		-- (Default) Only show the documentation popup when manually triggered
 		completion = {
 			documentation = { treesitter_highlighting = true, auto_show = true, window = { border = "single" } },
 			accept = {
-				-- experimental auto-brackets support
 				auto_brackets = {
 					enabled = true,
 				},
@@ -46,14 +30,12 @@ return {
 								local kind_icon, _, _ = require("mini.icons").get("lsp", ctx.kind)
 								return kind_icon
 							end,
-							-- (optional) use highlights from mini.icons
 							highlight = function(ctx)
 								local _, hl, _ = require("mini.icons").get("lsp", ctx.kind)
 								return hl
 							end,
 						},
 						kind = {
-							-- (optional) use highlights from mini.icons
 							highlight = function(ctx)
 								local _, hl, _ = require("mini.icons").get("lsp", ctx.kind)
 								return hl
@@ -74,14 +56,33 @@ return {
 		},
 
 		signature = { window = { border = "single" }, enabled = true },
-
-		-- Default list of enabled providers defined so that you can extend it
-		-- elsewhere in your config, without redefining it, due to `opts_extend`
 		sources = {
-			default = { "lsp", "buffer", "path" },
+			default = { "avante", "lsp", "buffer", "path", "copilot" },
 			per_filetype = { sql = { "dadbod" } },
 			providers = {
 				dadbod = { module = "vim_dadbod_completion.blink" },
+				avante = {
+					module = "blink-cmp-avante",
+					name = "Avante",
+					opts = {
+						-- options for blink-cmp-avante
+					},
+				},
+				copilot = {
+					name = "copilot",
+					module = "blink-cmp-copilot",
+					score_offset = 100,
+					async = true,
+					transform_items = function(_, items)
+						local CompletionItemKind = require("blink.cmp.types").CompletionItemKind
+						local kind_idx = #CompletionItemKind + 1
+						CompletionItemKind[kind_idx] = "Copilot"
+						for _, item in ipairs(items) do
+							item.kind = kind_idx
+						end
+						return items
+					end,
+				},
 				path = {
 					module = "blink.cmp.sources.path",
 					score_offset = 3,
@@ -102,11 +103,42 @@ return {
 				end, items)
 			end,
 		},
-		-- (Default) Rust fuzzy matcher for typo resistance and significantly better performance
-		-- You may use a lua implementation instead by using `implementation = "lua"` or fallback to the lua implementation,
-		-- when the Rust fuzzy matcher is not available, by using `implementation = "prefer_rust"`
-		--
-		-- See the fuzzy documentation for more information
+		appearance = {
+			-- Blink does not expose its default kind icons so you must copy them all (or set your custom ones) and add Copilot
+			kind_icons = {
+				Copilot = "",
+				Text = "󰉿",
+				Method = "󰊕",
+				Function = "󰊕",
+				Constructor = "󰒓",
+
+				Field = "󰜢",
+				Variable = "󰆦",
+				Property = "󰖷",
+
+				Class = "󱡠",
+				Interface = "󱡠",
+				Struct = "󱡠",
+				Module = "󰅩",
+
+				Unit = "󰪚",
+				Value = "󰦨",
+				Enum = "󰦨",
+				EnumMember = "󰦨",
+
+				Keyword = "󰻾",
+				Constant = "󰏿",
+
+				Snippet = "󱄽",
+				Color = "󰏘",
+				File = "󰈔",
+				Reference = "󰬲",
+				Folder = "󰉋",
+				Event = "󱐋",
+				Operator = "󰪚",
+				TypeParameter = "󰬛",
+			},
+		},
 		fuzzy = { implementation = "prefer_rust_with_warning" },
 	},
 	opts_extend = { "sources.default" },

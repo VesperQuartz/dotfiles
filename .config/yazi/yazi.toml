@@ -55,12 +55,6 @@ prepend_previewers = [
 ]
 append_previewers = [{ name = "*", run = "hexyl" }]
 
-[[plugin.prepend_fetchers]]
-id = "mime"
-name = "*"
-run = "mime-ext"
-prio = "high"
-
 [[manager.prepend_keymap]]
 on = "!"
 run = 'shell "$SHELL" --block --confirm'

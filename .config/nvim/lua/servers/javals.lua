@@ -1,1 +1,2 @@
-require("lspconfig").jdtls.setup({ cmd = { "jdtls" } })
+vim.lsp.enable("jdtls")
+vim.lsp.config("jdtls", { cmd = { "jdtls" } })

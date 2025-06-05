@@ -1,6 +1,15 @@
-local nvim_lsp = require("lspconfig")
-
-nvim_lsp.rust_analyzer.setup({})
+vim.lsp.enable("zls")
+vim.lsp.enable("move_analyzer")
+vim.lsp.enable("rust-analyzer")
+vim.lsp.config("rust-analyzer", {
+	settings = {
+		["rust-analyzer"] = {
+			checkOnSave = {
+				command = "clippy",
+			},
+		},
+	},
+})
 
 local opts = {
 	tools = {
@@ -30,5 +39,3 @@ local opts = {
 }
 
 require("rust-tools").setup(opts)
-require("lspconfig").zls.setup({})
-require("lspconfig").move_analyzer.setup({})

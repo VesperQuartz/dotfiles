@@ -13,7 +13,8 @@ return {
 	},
 	{ "echasnovski/mini.nvim", version = "*" },
 	"p00f/clangd_extensions.nvim",
-	{ "github/copilot.vim", lazy = false },
+	{ "zbirenbaum/copilot.lua", lazy = false },
+	{ "giuxtaposition/blink-cmp-copilot", lazy = false },
 	"petertriho/cmp-git",
 	{
 		"yanganto/move.vim",
@@ -37,13 +38,17 @@ return {
 			require("nvim-surround").setup({})
 		end,
 	},
-	"mattn/emmet-vim",
+	{
+		"olrtg/nvim-emmet",
+		config = function()
+			vim.keymap.set({ "n", "v" }, "<leader>xe", require("nvim-emmet").wrap_with_abbreviation)
+		end,
+	},
 	{
 		"windwp/nvim-ts-autotag",
 		lazy = false,
 	},
 	"isobit/vim-caddyfile",
-	"dcampos/cmp-emmet-vim",
 	"mfussenegger/nvim-jdtls",
 	"mhartington/formatter.nvim",
 	"nanotee/sqls.nvim",

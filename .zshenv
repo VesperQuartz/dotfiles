@@ -128,6 +128,7 @@ eval "$(pyenv init --path)"
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$IOTA:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
+export PATH="/home/brown/.bun/bin:$PATH"
 export ZELLIJ_AUTO_ATTACH="true"
 export DOCKER_BUILDKIT=1
 export XDG_CACHE_HOME=$HOME/.cache

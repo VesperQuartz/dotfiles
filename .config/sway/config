@@ -16,7 +16,7 @@ set $down j
 set $up k
 set $right l
 # Your preferred terminal emulator
-set $term wezterm
+set $term ghostty
 
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
@@ -49,25 +49,27 @@ output eDP-1 background /home/brown/.local/share/wallpapers/wall/wallhaven-wezyq
 #          timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
 #          before-sleep 'swaylock -f -c 000000'
 
-# bindsym $mod+x exec ~/.local/bin/mylock
-set $lock swaylock --clock --indicator --screenshots --effect-scale 0.4 --effect-vignette 0.2:0.5 --effect-blur 4x2 --datestr "%a %e.%m.%Y" --timestr "%k:%M"
+# exec swayidle -w \
+#     timeout 300 "gdmflexiserver" \
+#     timeout 600 "systemctl -i suspend"
+# # bindsym $mod+x exec ~/.local/bin/mylock
+
+set $lock-now gdmflexiserver
+set $lidclose 'systemctl suspend'
+set $lock gdmflexiserver
 
 exec swayidle -w \
-  timeout 1000 'swaylock -f -c 000000' \
-  timeout 2000 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
-  before-sleep 'swaylock -f -c 000000'
+  timeout 300 'light -O; light -S 5' \
+    resume 'light -I' \
+  timeout 500 'swaymsg "output * dpms off"' \
+    resume 'swaymsg "output * dpms on"' \
+  timeout 600 'systemctl suspend' \
+  before-sleep 'exec $lock-now'
 
-set $lockman exec bash ~/.config/sway/lockman.sh
-bindsym $mod+x exec slock
-# This will lock your screen after 300 seconds of inactivity, then turn off
-# your displays after another 300 seconds, and turn your screens back on when
-# resumed. It will also lock your screen before your computer goes to sleep.
+bindswitch --reload --locked lid:on exec $lidclose
 
-### Input configuration
-#
+bindsym $mod+x exec gdmflexiserver
 
-# Example configuration:
-#
 input "1739:52744:SYNA30D2:00_06CB:CE08" {
     dwt enabled
     tap enabled
@@ -107,8 +109,9 @@ titlebar_padding 1 1
 # Status Bar:
 #
 # Read `man 5 sway-bar` for more information about this section.
+
 bar {
-  swaybar_command waybar
+     swaybar_command nwg-panel
 }
 
 # Font
@@ -139,16 +142,19 @@ client.background        $base
 
 assign [app_id="Celluloid$"] 5
 assign [app_id="^Alacritty$"] 2
+assign [app_id="^dev.zed.Zed$"] 4
 assign [app_id="^evince$"] 6
 assign [app_id="^figma-linux$"] 10
 assign [app_id="^firefox$"] 1
 assign [app_id="^firedragon$"] 1
+assign [app_id="^zen$"] 1
 assign [app_id="^zen-alpha$"] 1
 assign [app_id="^firefoxdeveloperedition$"] 1
 assign [app_id="^google-chrome$"] 1
 assign [app_id="^kitty$"] 2
 assign [app_id="^chromium$"] 1
 assign [app_id="^org.wezfurlong.wezterm$"] 2
+assign [app_id="^com.mitchellh.ghostty$"] 2
 assign [app_id="^mpv$"] 5
 assign [app_id="^rhythmbox$"] 5
 assign [app_id="^org.gnome.Nautilus$"] 3
@@ -164,6 +170,7 @@ assign [app_id="^telegramdesktop$"] 7
 assign [app_id="^virt-manager$"] 10
 assign [app_id="pcmanfm$"] 3
 assign [class="^Alacritty$"] 2
+assign [class="^com.mitchellh.ghostty$"] 2
 assign [class="^Atril$"] 6
 assign [class="^Caja$"] 3
 assign [class="^chromium$"] 1
@@ -171,6 +178,8 @@ assign [class="^Google-chrome-unstable$"] 1
 assign [class="^waterfox$"] 1
 assign [class="^firedragon$"] 1
 assign [class="^Eclipse$"] 4
+# assign [class="^Emulator$" title="Android Emulator - mrlectus:5554"] 4
+# assign [class="^Emulator$" title="Emulator"] 4
 assign [class="^FireFox$"] 1
 assign [class="^Foxit Reader$"] 6
 assign [class="^Gimp-2.10$"] 2
@@ -216,9 +225,10 @@ for_window [app_id="scrcpy"] border none, floating enable, move position 2ppt 0,
 for_window [app_id="zoom" title="Settings"] floating enable, floating_minimum_size 760 x 400
 for_window [app_id="zoom" title="Zoom Meeting(.*)?"] workspace next_on_output --create, move container to workspace current, floating disable, inhibit_idle open
 for_window [app_id="zoom" title="^(Zoom|About)$"] border pixel, floating enable
+for_window [app_id="^com.mitchellh.ghostty$"] border none, floating enabled, resize set 1585 842, move position -5 -5
 for_window [class="^Google-chrome"] border none
-for_window [class="^Emulator" title="Android Emulator - mrlectus:5554"] border none, floating disable
-for_window [class="^Emulator" title="Emulator"] border none, floating disable, resize set 10 20
+for_window [class="^Emulator$" title="Android Emulator - mrlectus:5554"] border none, enabled disable, move to scratchpad, scratchpad hide
+for_window [class="^Emulator$" title="Emulator"] border none, floating enabled
 for_window [class="^bruno$"] opacity $opacity
 for_window [class="^discord$"] opacity $opacity, border none
 for_window [class="^kitty$"] opacity $opacity
@@ -234,12 +244,20 @@ exec hash dbus-update-activation-environment 2>/dev/null && \
      dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
 exec_always /home/brown/.config/sway/script.sh
 exec nm-applet --indicator
+exec_always nwg-panel
 
 #exec twmnd
 exec swaync
-# exec eww daemon
 
 ### Key bindings
+
+### Gesture
+bindgesture swipe:right workspace prev
+bindgesture swipe:left workspace next
+bindgesture pinch:inward+up move up
+bindgesture pinch:inward+down move down
+bindgesture pinch:inward+left move left
+bindgesture pinch:inward+right move right
 #
 # Basics:
 #
@@ -266,10 +284,9 @@ bindsym $mod+d exec $menu
 
 # Upload screenshot and copy url to clipboard
 # bindsym Print exec grim -o $(swaymsg -t get_outputs | jq -r '.[] | select(.focused) | .name')
-bindsym Print exec /usr/bin/sway-interactive-screenshot
-
-# bindsym $mod+Print exec grim -g "$(swaymsg -t get_tree | jq -j '.. | select(.type?) | select(.focused).rect | "\(.x),\(.y) \(.width)x\(.height)"')"
-bindsym $mod+Print exec /usr/bin/sway-interactive-screenshot --video
+bindsym Print exec $HOME/.local/bin/sway-interactive-screenshot
+# bindsym $mod+Print exec grim -g "$(swaymsg -t get_tree | jq -j '.. | select(.type?) | select(.focused).rect | "\(.x),\(.y \(.widthx\(.height"'"
+bindsym $mod+Print exec $HOME/.local/bin/sway-interactive-screenshot --video
 
 floating_modifier $mod normal
 

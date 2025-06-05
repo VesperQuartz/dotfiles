@@ -40,3 +40,7 @@ ovpn() {
 setup-remix() {
   pnpx create-remix@latest
 }
+
+nobg() {
+  magick "$1" -transparent white -fuzz 25% -fill none -draw 'color 1,1 floodfill' "$2"
+}
