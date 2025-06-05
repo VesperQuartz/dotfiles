@@ -84,7 +84,6 @@ vim.g.ruby_host_prog = "$HOME/.local/share/gem/ruby/3.0.0/bin/neovim-ruby-host"
 
 vim.g.dashboard_default_executive = "telescope"
 
-vim.g.user_emmet_expandabbr_key = "<c-e>"
 set.background = "dark" -- configure Vim to use brighter colors
 
 -- Highlight on yank
