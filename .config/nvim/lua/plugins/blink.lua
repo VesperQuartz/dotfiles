@@ -48,7 +48,7 @@ return {
 		},
 		cmdline = {
 			enabled = true,
-			keymap = { preset = "inherit" },
+			keymap = { preset = "enter" },
 			completion = {
 				ghost_text = { enabled = true },
 				menu = {
