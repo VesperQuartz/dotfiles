@@ -38,8 +38,9 @@ export XDG_PICTURES_DIR=/home/brown/Pictures/
 export XDG_STATE_HOME=${XDG_STATE_HOME:="$HOME/.local/state"}
 . "/home/brown/.local/share/cargo/env"
 PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/usr/local/lib/pkgconfig
-export ANDROID_EMULATOR_HOME=/home/brown/.android
 export ANDROID_HOME=${HOME}/Android/Sdk
+export ANDROID_AVD_HOME=/home/brown/.var/app/com.google.AndroidStudio/config/.android/avd
+export ANDROID_EMULATOR_HOME=/home/brown/Android/Sdk/emulator
 export PATH=$PATH:$ANDROID_HOME/emulator
 export PATH=$PATH:$ANDROID_HOME/platform-tools
 export ANDROID_SDK_ROOT=${HOME}/Android/Sdk

@@ -4,12 +4,15 @@ require("conform").setup({
 		lua = { "stylua" },
 		awk = { "awk" },
 		go = { "gofmt", lsp_format = "fallback" },
-		javascriptreact = { "prettierd", "prettier", "eslint_d" },
-		typescriptreact = { "prettierd", "prettier", "eslint_d" },
+		css = { "biome" },
+		json = { "biome" },
+		javascriptreact = { "biome", "biome-organize-imports" },
+		typescriptreact = { "biome", "biome-organize-imports" },
+		javascript = { "biome", "biome-organize-imports" },
+		typescript = { "biome", "biome-organize-imports" },
 		rust = { "rustfmt", "dioxus", lsp_format = "fallback" },
+		proto = { "buf", lsp_format = "fallback" },
 		tex = { "latexindent", args = "-w" },
-		javascript = { "prettierd", "prettier", stop_after_first = true },
-		typescript = { "prettierd", "prettier", stop_after_first = true },
 		caddyfile = { "caddyfile" },
 		solidity = { "forge", lsp_format = "fallback" },
 		python = { "black" },
@@ -23,6 +26,14 @@ require("conform").setup({
 	notify_on_error = true,
 	notify_no_formatters = true,
 	formatters = {
+		proto = {
+			command = "buf",
+			args = { "format", "$FILENAME" },
+			stdin = true,
+			require_cwd = true,
+			cwd = require("conform.util").root_file({ ".git" }),
+			exit_codes = { 1 },
+		},
 		caddyfile = {
 			command = "caddy",
 			args = { "fmt", "$FILENAME" },
@@ -48,16 +59,10 @@ require("conform").setup({
 	},
 })
 
--- vim.api.nvim_create_autocmd("BufWritePre", {
--- 	pattern = "*",
--- 	callback = function(args)
--- 		require("conform").format({ bufnr = args.buf })
--- 	end,
--- })
---
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = "json",
 	callback = function(ev)
 		vim.bo[ev.buf].formatprg = "jq"
+		vim.api.nvim_set_option_value("formatprg", "jq", { scope = "local" })
 	end,
 })

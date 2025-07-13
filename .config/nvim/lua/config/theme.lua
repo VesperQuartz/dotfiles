@@ -43,7 +43,7 @@ require("catppuccin").setup({
 	},
 })
 -- setup must be called before loading
-local color = { "catppuccin", "catppuccin-mocha", "tokyonight", "dracula", "rose-pine-moon" }
+local color = { "kanagawa", "catppuccin", "catppuccin-mocha", "tokyonight", "dracula", "rose-pine-moon" }
 math.randomseed(os.time())
 vim.cmd.colorscheme(color[math.random(#color)])
 require("lualine").setup({

@@ -1,3 +1,2 @@
-require("rest-nvim").setup({
-	-- your config
-})
+---@type rest.Opts
+vim.g.rest_nvim = {}

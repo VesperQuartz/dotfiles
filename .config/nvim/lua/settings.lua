@@ -15,7 +15,10 @@ require("servers..texlab")
 require("servers..tsserver")
 require("lspconfig").puppet.setup({})
 require("config..barbar")
-require("config..copilot")
+-- require("config..avante")
+require("config..mcp")
+require("config..companion")
+-- require("config..copilot")
 require("servers..javals")
 require("servers..kotlinls")
 require("servers..solidity")
@@ -60,3 +63,4 @@ vim.cmd([[
 autocmd BufWinLeave *.* mkview
 autocmd BufWinEnter *.* silent! loadview
 ]])
+vim.lsp.inlay_hint.enable(true)

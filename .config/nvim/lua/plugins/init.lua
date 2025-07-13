@@ -1,4 +1,20 @@
 return {
+	{
+		"MeanderingProgrammer/render-markdown.nvim",
+		ft = { "markdown", "codecompanion" },
+	},
+	{
+		"HakonHarnes/img-clip.nvim",
+		opts = {
+			filetypes = {
+				codecompanion = {
+					prompt_for_file_name = false,
+					template = "[Image]($FILE_PATH)",
+					use_absolute_path = true,
+				},
+			},
+		},
+	},
 	{ "nvim-telescope/telescope-media-files.nvim", lazy = false },
 	{
 		"folke/ts-comments.nvim",
@@ -15,6 +31,16 @@ return {
 	"p00f/clangd_extensions.nvim",
 	{ "zbirenbaum/copilot.lua", lazy = false },
 	{ "giuxtaposition/blink-cmp-copilot", lazy = false },
+	{ "codota/tabnine-nvim", build = "./dl_binaries.sh" },
+	{
+		"echasnovski/mini.diff",
+		config = function()
+			local diff = require("mini.diff")
+			diff.setup({
+				source = diff.gen_source.none(),
+			})
+		end,
+	},
 	"petertriho/cmp-git",
 	{
 		"yanganto/move.vim",
@@ -29,6 +55,7 @@ return {
 	"gko/vim-coloresque",
 	"nvim-tree/nvim-tree.lua",
 	"nvim-tree/nvim-web-devicons",
+	"rebelot/kanagawa.nvim",
 	{ "lukas-reineke/indent-blankline.nvim" },
 	{
 		"kylechui/nvim-surround",
@@ -48,7 +75,7 @@ return {
 		"windwp/nvim-ts-autotag",
 		lazy = false,
 	},
-	"isobit/vim-caddyfile",
+	{ "isobit/vim-caddyfile", lazy = false },
 	"mfussenegger/nvim-jdtls",
 	"mhartington/formatter.nvim",
 	"nanotee/sqls.nvim",

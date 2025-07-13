@@ -33,7 +33,7 @@ output HDMI-A-1 resolution 1920x1080@60hz
 output HDMI-A-1 scale 1.5
 output HDMI-A-1 pos 1280 0
 # output HDMI-A-1 transform 270
-output HDMI-A-1 background /home/brown/.local/share/wallpapers/wall/wallhaven-wezyqx.jpg fill
+output HDMI-A-1 background /home/brown/.local/share/wallpapers/wall/anime-girl-ocean-view-0z.jpg fill
 #
 # You can get the names of your outputs by running: swaymsg -t get_outputs
 output eDP-1 scale 1.2
@@ -111,7 +111,7 @@ titlebar_padding 1 1
 # Read `man 5 sway-bar` for more information about this section.
 
 bar {
-     swaybar_command nwg-panel
+     swaybar_command waybar
 }
 
 # Font
@@ -150,9 +150,7 @@ assign [app_id="^firedragon$"] 1
 assign [app_id="^zen$"] 1
 assign [app_id="^zen-alpha$"] 1
 assign [app_id="^firefoxdeveloperedition$"] 1
-assign [app_id="^google-chrome$"] 1
 assign [app_id="^kitty$"] 2
-assign [app_id="^chromium$"] 1
 assign [app_id="^org.wezfurlong.wezterm$"] 2
 assign [app_id="^com.mitchellh.ghostty$"] 2
 assign [app_id="^mpv$"] 5
@@ -173,8 +171,6 @@ assign [class="^Alacritty$"] 2
 assign [class="^com.mitchellh.ghostty$"] 2
 assign [class="^Atril$"] 6
 assign [class="^Caja$"] 3
-assign [class="^chromium$"] 1
-assign [class="^Google-chrome-unstable$"] 1
 assign [class="^waterfox$"] 1
 assign [class="^firedragon$"] 1
 assign [class="^Eclipse$"] 4
@@ -183,7 +179,6 @@ assign [class="^Eclipse$"] 4
 assign [class="^FireFox$"] 1
 assign [class="^Foxit Reader$"] 6
 assign [class="^Gimp-2.10$"] 2
-assign [class="^Google-chrome$"] 1
 assign [class="^Insomnia$"] 10
 assign [class="^Mate-terminal$"] 2
 assign [class="^Thorium-browser$"] 1
@@ -225,7 +220,7 @@ for_window [app_id="scrcpy"] border none, floating enable, move position 2ppt 0,
 for_window [app_id="zoom" title="Settings"] floating enable, floating_minimum_size 760 x 400
 for_window [app_id="zoom" title="Zoom Meeting(.*)?"] workspace next_on_output --create, move container to workspace current, floating disable, inhibit_idle open
 for_window [app_id="zoom" title="^(Zoom|About)$"] border pixel, floating enable
-for_window [app_id="^com.mitchellh.ghostty$"] border none, floating enabled, resize set 1585 842, move position -5 -5
+# for_window [app_id="^com.mitchellh.ghostty$"] border none, floating enabled, resize set 1585 842, move position -5 -5
 for_window [class="^Google-chrome"] border none
 for_window [class="^Emulator$" title="Android Emulator - mrlectus:5554"] border none, enabled disable, move to scratchpad, scratchpad hide
 for_window [class="^Emulator$" title="Emulator"] border none, floating enabled
@@ -244,9 +239,8 @@ exec hash dbus-update-activation-environment 2>/dev/null && \
      dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
 exec_always /home/brown/.config/sway/script.sh
 exec nm-applet --indicator
-exec_always nwg-panel
+# exec_always nwg-panel
 
-#exec twmnd
 exec swaync
 
 ### Key bindings

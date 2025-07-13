@@ -29,6 +29,9 @@ require("lazy").setup({
 		missing = true,
 		colorscheme = { "habamax" },
 	},
+	git = {
+		timeout = 10000,
+	},
 	ui = {
 		icons = {
 			cmd = "⌘",

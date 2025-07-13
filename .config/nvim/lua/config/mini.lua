@@ -10,4 +10,10 @@ require("nvim-tree").setup({
 		},
 	},
 })
-require("mini.files").setup()
+require("mini.files").setup({
+	mappings = {
+		go_in = "<cr>",
+		go_out = "[",
+	},
+})
+require("mini.icons").setup()

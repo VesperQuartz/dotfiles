@@ -92,6 +92,7 @@ map("n", "<leader>ff", ":Telescope find_files<CR>", opts)
 map("n", "<leader>fg", ":Telescope live_grep<CR>", opts)
 map("n", "<leader>fb", ":Telescope buffers<CR>", opts)
 map("n", "<leader>fh", ":Telescope help_tags<CR>", opts)
+map("n", "<leader>aa", ":CodeCompanionChat Toggle<CR>", opts)
 
 -- move vertically by visual line (don't skip wrapped lines)
 map("v", "j", "gj", { silent = true })
@@ -99,8 +100,10 @@ map("v", "k", "gk", { silent = true })
 
 -- turn off search highlighting with <CR> (carriage-return)
 map("n", "<CR>", ":nohlsearch<CR><CR>", opts)
-map("n", "<F13>", ":NvimTreeToggle()<CR>", opts)
-map("n", "<S-F1>", ":NvimTreeToggle()<CR>", opts)
+map("n", "<F14>", ":NvimTreeToggle()<CR>", opts)
+vim.keymap.set("n", "<S-F1>", function()
+	require("mini.files").open()
+end)
 
 -- Dashboard provides session support. With SessionLoad and SessionSave
 map("n", "<leader>ss", ":SessionSave<CR>", opts)

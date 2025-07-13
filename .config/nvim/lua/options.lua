@@ -50,7 +50,7 @@ set.wildmenu = true --visual autocomplete for command menu
 set.colorcolumn = "120"
 set.textwidth = 140
 set.showmatch = true --highlight matching parentheses / brackets [{()}]
-set.laststatus = 2 --always show statusline (even with only single window)
+set.laststatus = 3 --always show statusline (even with only single window)
 set.ruler = true --show line and column number of the cursor on right side of statusline
 set.visualbell = true --blink cursor on error, instead of beeping
 
@@ -76,16 +76,14 @@ set.hlsearch = true -- highlight matches
 vim.g.indentLine_setColors = 0
 vim.g.indentLine_char = "▏"
 
-vim.g.python_host_prog = "/bin/python2.7"
 vim.g.python3_host_prog = "/bin/python3"
 vim.g.perl_host_prog = "/bin/perl"
-vim.g.node_host_prog = "/bin/neovim-node-host"
 vim.g.ruby_host_prog = "$HOME/.local/share/gem/ruby/3.0.0/bin/neovim-ruby-host"
 
 vim.g.dashboard_default_executive = "telescope"
 
 set.background = "dark" -- configure Vim to use brighter colors
-
+vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
 -- Highlight on yank
 vim.cmd([[
   augroup YankHighlight
