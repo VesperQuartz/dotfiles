@@ -39,10 +39,8 @@ require("catppuccin").setup({
 		notify = false,
 		mini = true,
 		barbar = true,
-		-- For more plugins integrations please scroll down (https://github.com/catppuccin/nvim#integrations)
 	},
 })
--- setup must be called before loading
 local color = { "kanagawa", "catppuccin", "catppuccin-mocha", "tokyonight", "dracula", "rose-pine-moon" }
 math.randomseed(os.time())
 vim.cmd.colorscheme(color[math.random(#color)])
