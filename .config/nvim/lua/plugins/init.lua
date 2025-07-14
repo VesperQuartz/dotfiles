@@ -23,7 +23,6 @@ return {
 	"gko/vim-coloresque",
 	"nvim-tree/nvim-tree.lua",
 	"rebelot/kanagawa.nvim",
-	{ "lukas-reineke/indent-blankline.nvim" },
 	{
 		"olrtg/nvim-emmet",
 		config = function()

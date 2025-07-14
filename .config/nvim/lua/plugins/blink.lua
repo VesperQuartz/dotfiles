@@ -63,9 +63,8 @@ return {
 		signature = { window = { border = "single" }, enabled = true },
 		sources = {
 			default = { "avante", "lsp", "buffer", "path" },
-			per_filetype = { sql = { "dadbod" }, codecompanion = { "codecompanion" } },
+			per_filetype = { codecompanion = { "codecompanion" } },
 			providers = {
-				dadbod = { module = "vim_dadbod_completion.blink" },
 				avante = {
 					module = "blink-cmp-avante",
 					name = "Avante",

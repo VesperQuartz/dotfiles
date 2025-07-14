@@ -76,9 +76,9 @@ set.hlsearch = true -- highlight matches
 vim.g.indentLine_setColors = 0
 vim.g.indentLine_char = "▏"
 
-vim.g.python3_host_prog = "/bin/python3"
-vim.g.perl_host_prog = "/bin/perl"
-vim.g.ruby_host_prog = "$HOME/.local/share/gem/ruby/3.0.0/bin/neovim-ruby-host"
+-- vim.g.python3_host_prog = "/bin/python3"
+-- vim.g.perl_host_prog = "/bin/perl"
+-- vim.g.ruby_host_prog = "$HOME/.local/share/gem/ruby/3.0.0/bin/neovim-ruby-host"
 
 vim.g.dashboard_default_executive = "telescope"
 
