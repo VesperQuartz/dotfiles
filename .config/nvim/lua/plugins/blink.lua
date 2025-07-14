@@ -48,7 +48,10 @@ return {
 		},
 		cmdline = {
 			enabled = true,
-			keymap = { preset = "enter" },
+			keymap = {
+				preset = "inherit",
+				["<CR>"] = { "accept_and_enter", "fallback" },
+			},
 			completion = {
 				ghost_text = { enabled = true },
 				menu = {
