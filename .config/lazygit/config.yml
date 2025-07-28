@@ -3,6 +3,7 @@ gui:
   showCommandLog: true
   nerdFontsVersion: "3"
   commandLogSize: 36
+
   theme:
     activeBorderColor:
       - "#a6e3a1" # Green

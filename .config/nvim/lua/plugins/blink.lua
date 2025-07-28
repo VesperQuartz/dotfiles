@@ -4,6 +4,20 @@ return {
 		"Kaiser-Yang/blink-cmp-avante",
 		-- "giuxtaposition/blink-cmp-copilot",
 		{ "echasnovski/mini.icons", version = false },
+		{
+			"supermaven-inc/supermaven-nvim",
+			dependencies = { "huijiro/blink-cmp-supermaven" },
+			opts = {
+				-- @NOTE: the comment bellow say: only cmp (not blink.cmp) can handle the inline completion for now if disable on supermaven-nvim and maybe wrong comment.
+				disable_inline_completion = true, -- disables inline completion for use with cmp
+				disable_keymaps = false, -- disables built in keymaps for more manual control with blink.cmp
+				keymaps = {
+					accept_suggestion = nil,
+					clear_suggestion = nil,
+					accept_word = "<C-f>",
+				},
+			},
+		},
 	},
 
 	version = "1.*",
@@ -62,9 +76,15 @@ return {
 
 		signature = { window = { border = "single" }, enabled = true },
 		sources = {
-			default = { "avante", "lsp", "buffer", "path" },
+			default = { "supermaven", "avante", "lazydev", "lsp", "buffer", "path" },
 			per_filetype = { codecompanion = { "codecompanion" } },
 			providers = {
+				lazydev = {
+					name = "LazyDev",
+					module = "lazydev.integrations.blink",
+					-- make lazydev completions top priority (see `:h blink.cmp`)
+					score_offset = 100,
+				},
 				avante = {
 					module = "blink-cmp-avante",
 					name = "Avante",
@@ -76,6 +96,12 @@ return {
 				-- 	score_offset = 100,
 				-- 	async = true,
 				-- },
+				supermaven = {
+					name = "supermaven",
+					module = "blink-cmp-supermaven",
+					async = true,
+				},
+
 				path = {
 					module = "blink.cmp.sources.path",
 					score_offset = 3,
@@ -97,6 +123,12 @@ return {
 			end,
 		},
 		fuzzy = { implementation = "lua" },
+		appearance = {
+			kind_icons = {
+				Maven = "",
+				Copilot = "",
+			},
+		},
 	},
 	opts_extend = { "sources.default" },
 }

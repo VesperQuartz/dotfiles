@@ -16,43 +16,12 @@ vim.opt.splitright = true
 
 --Set highlight on search
 set.hlsearch = true
+set.relativenumber = true
 
 --Enable mouse mode
 
---Enable break indent
-set.breakindent = true
-
--- Fold
-
-set.foldmethod = "expr"
-
---Save undo history
-set.undofile = true
-
---Case insensitive searching UNLESS /C or capital in search
-set.ignorecase = true
-set.smartcase = true
-
---Decrease update time
-set.updatetime = 200
-vim.wo.signcolumn = "yes"
-
 set.clipboard:prepend({ "unnamedplus" })
 set.completeopt:prepend("menuone,noselect,noinsert")
-
-set.list = true
-set.number = true --show line numbers
-set.wrap = false --wrap lines
-
---set.spell spelllang=en_us
-set.encoding = "utf-8" --set encoding to UTF-8 (default was "latin1")
-set.wildmenu = true --visual autocomplete for command menu
-set.colorcolumn = "120"
-set.textwidth = 140
-set.showmatch = true --highlight matching parentheses / brackets [{()}]
-set.laststatus = 3 --always show statusline (even with only single window)
-set.ruler = true --show line and column number of the cursor on right side of statusline
-set.visualbell = true --blink cursor on error, instead of beeping
 
 -- Tab settings
 set.expandtab = true
@@ -62,25 +31,6 @@ set.softtabstop = 2 -- backspace after pressing <TAB> will remove up to this man
 
 set.autoindent = true -- copy indent from current line when starting a new line
 set.smartindent = true -- even better autoindent (e.g. add indent after '{')
-
-set.cursorline = true -- highlight current line
-set.autoread = true -- autoreload the file in Vim if it has been changed outside of Vim
-set.swapfile = false
-set.relativenumber = true
-set.showtabline = 0
-
--- Search settings
-set.incsearch = true -- search as characters are entered
-set.hlsearch = true -- highlight matches
-
-vim.g.indentLine_setColors = 0
-vim.g.indentLine_char = "▏"
-
--- vim.g.python3_host_prog = "/bin/python3"
--- vim.g.perl_host_prog = "/bin/perl"
--- vim.g.ruby_host_prog = "$HOME/.local/share/gem/ruby/3.0.0/bin/neovim-ruby-host"
-
-vim.g.dashboard_default_executive = "telescope"
 
 set.background = "dark" -- configure Vim to use brighter colors
 vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
@@ -95,4 +45,3 @@ vim.cmd([[
 vim.g.markdown_fenced_languages = {
 	"ts=typescript",
 }
--- vim.ui.select = require("dropbar.utils.select").select

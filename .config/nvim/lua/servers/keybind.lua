@@ -7,8 +7,6 @@ vim.tbl_deep_extend("force", lsp_defaults.capabilities, require("cmp_nvim_lsp").
 --
 local map = vim.keymap.set
 
-local tscope = require("telescope.builtin")
-
 -- Global mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 map("n", "<space>e", vim.diagnostic.open_float)
@@ -25,20 +23,15 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		-- Buffer local mappings.
 		-- See `:help vim.lsp.*` for documentation on any of the below functions
 		local opts = { buffer = ev.buf }
-		map("n", "gD", vim.lsp.buf.declaration, opts)
-		map("n", "gd", tscope.lsp_definitions, opts)
 		map("n", "K", vim.lsp.buf.hover, opts)
-		map("n", "gi", vim.lsp.buf.implementation, opts)
 		map("n", "<C-k>", vim.lsp.buf.signature_help, opts)
 		map("n", "<space>wa", vim.lsp.buf.add_workspace_folder, opts)
 		map("n", "<space>wr", vim.lsp.buf.remove_workspace_folder, opts)
 		map("n", "<space>wl", function()
 			print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
 		end, opts)
-		map("n", "<space>D", vim.lsp.buf.type_definition, opts)
 		map("n", "<space>rn", vim.lsp.buf.rename, opts)
 		map({ "n", "v" }, "<space>ca", vim.lsp.buf.code_action, opts)
-		map("n", "gr", vim.lsp.buf.references, opts)
 		map("n", "<space>f", function()
 			vim.lsp.buf.format({ async = true })
 		end, opts)
@@ -87,13 +80,6 @@ map("n", "<leader>6", ":6b<CR>", opts)
 map("n", "<Leader>+", ':exe "resize " . (winheight(0) * 3/2)<CR>', opts)
 map("n", "<Leader>-", ':exe "resize " . (winheight(0) * 2/3)<CR>', opts)
 
--- Telescope 🔭
-map("n", "<leader>ff", ":Telescope find_files<CR>", opts)
-map("n", "<leader>fg", ":Telescope live_grep<CR>", opts)
-map("n", "<leader>fb", ":Telescope buffers<CR>", opts)
-map("n", "<leader>fh", ":Telescope help_tags<CR>", opts)
-map("n", "<leader>aa", ":CodeCompanionChat Toggle<CR>", opts)
-
 -- move vertically by visual line (don't skip wrapped lines)
 map("v", "j", "gj", { silent = true })
 map("v", "k", "gk", { silent = true })
@@ -101,7 +87,7 @@ map("v", "k", "gk", { silent = true })
 -- turn off search highlighting with <CR> (carriage-return)
 map("n", "<CR>", ":nohlsearch<CR><CR>", opts)
 map("n", "<F14>", ":NvimTreeToggle()<CR>", opts)
-vim.keymap.set("n", "<S-F1>", function()
+map("n", "<S-F1>", function()
 	require("mini.files").open()
 end)
 
@@ -122,10 +108,40 @@ map("n", "<leader>nb", "<C-o>", opts)
 -- Jumping
 map("n", "<leader>nb", "<C-o>", opts)
 
-vim.keymap.set("n", "<leader>nl", function()
+map("t", "<leader>tt", "<C-\\><C-n>", opts)
+
+map("n", "<leader>nl", function()
 	require("noice").cmd("last")
 end)
 
-vim.keymap.set("n", "<leader>nh", function()
+map("n", "<leader>nh", function()
 	require("noice").cmd("history")
 end)
+
+-- load the session for the current directory
+map("n", "<leader>qs", function()
+	require("persistence").load()
+end)
+
+-- select a session to load
+map("n", "<leader>qS", function()
+	require("persistence").select()
+end)
+
+-- load the last session
+map("n", "<leader>ql", function()
+	require("persistence").load({ last = true })
+end)
+
+-- stop Persistence => session won't be saved on exit
+map("n", "<leader>qd", function()
+	require("persistence").stop()
+end)
+
+map({ "n", "v" }, "<C-a>", ":CodeCompanionActions<cr>", { noremap = true, silent = true })
+map({ "n", "v" }, "<LocalLeader>a", ":CodeCompanionChat Toggle<cr>", { noremap = true, silent = true })
+map("v", "ga", ":CodeCompanionChat Add<cr>", { noremap = true, silent = true })
+map({ "n", "v" }, "<leader>aa", ":CodeCompanionChat Toggle<cr>", { noremap = true, silent = true })
+
+-- Expand 'cc' into 'CodeCompanion' in the command line
+vim.cmd([[cab cc CodeCompanion]])

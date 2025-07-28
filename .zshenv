@@ -138,4 +138,4 @@ export SRC_ACCESS_TOKEN=sgp_a0d7ccb4f752ea73_fb98e60a58013683feb2c1ca0303666cc8a
 export DPRINT=/home/brown/.dprint/bin/
 export PATH="/home/brown/.local/share/solana/install/active_release/bin:$SCRIPTS:$DPRINT:$HOME/.amplify/bin:$PATH"
 export AWS_ID=824636437844
-export TERM=xterm-256color
+export TERM=xterm-ghostty

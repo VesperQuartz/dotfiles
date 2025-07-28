@@ -33,12 +33,13 @@ output HDMI-A-1 resolution 1920x1080@60hz
 output HDMI-A-1 scale 1.5
 output HDMI-A-1 pos 1280 0
 # output HDMI-A-1 transform 270
-output HDMI-A-1 background /home/brown/.local/share/wallpapers/wall/anime-girl-ocean-view-0z.jpg fill
+output HDMI-A-1 bg /home/brown/.local/share/wallpapers/wall/anime-girl-ocean-view-0z.jpg fill
 #
 # You can get the names of your outputs by running: swaymsg -t get_outputs
 output eDP-1 scale 1.2
 # focus output HDMI-A-1
-output eDP-1 background /home/brown/.local/share/wallpapers/wall/wallhaven-wezyqx.jpg fill
+output eDP-1 resolution 1920x1080@60hz
+output eDP-1 bg /home/brown/.local/share/wallpapers/wall/anime-girl-ocean-view-0z.jpg fill
 #output eDP-1 background /home/brown/Downloads/arch-journey-dark.png fill
 ### Idle configuration
 #
@@ -131,7 +132,7 @@ gaps inner 10
 #border_images.urgent /some/folder/image.png
 
 # target                 title     bg    text   indicator  border
-client.focused           #CF9FFF $base $text  $rosewater   #CF9FFF
+client.focused           #CF9FFF   $base $text  $rosewater #CF9FFF
 client.focused_inactive  $overlay0 $base $text  $rosewater $overlay0
 client.unfocused         $overlay0 $base $text  $rosewater $overlay0
 client.urgent            $peach    $base $peach $overlay0  $peach
@@ -291,15 +292,14 @@ bindsym $mod+r reload
 #bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
 # #
 # Brightness controls
-bindsym --locked XF86MonBrightnessDown exec xbacklight -dec 10
-bindsym --locked XF86MonBrightnessUp exec xbacklight -inc 10
+bindsym --locked XF86MonBrightnessDown exec light -U 10
+bindsym --locked XF86MonBrightnessUp exec light -A 10
 
-bindsym XF86AudioRaiseVolume exec wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+
-bindsym XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
+bindsym XF86AudioRaiseVolume exec --no-startup-id wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+
+bindsym XF86AudioLowerVolume exec --no-startup-id wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
 bindsym XF86AudioMute exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
 bindsym XF86AudioMicMute exec wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
-# Moving around:
-#
+
 # Move your focus around
 bindsym $mod+$left focus left
 bindsym $mod+$down focus down
@@ -429,3 +429,4 @@ bindsym Mod4+e exec emote
 # exec_always autotiling
 exec_always wlsunset -l 9.076479 -L 7.398574
 exec wl-paste --watch cliphist store
+exec_always scripts/audio

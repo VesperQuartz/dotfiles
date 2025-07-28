@@ -3,13 +3,11 @@ return {
 		"MeanderingProgrammer/render-markdown.nvim",
 		ft = { "markdown", "codecompanion" },
 	},
-	{ "nvim-telescope/telescope-media-files.nvim", lazy = false },
 	{ "echasnovski/mini.nvim", version = "*" },
 	"p00f/clangd_extensions.nvim",
 	{ "zbirenbaum/copilot.lua", lazy = false },
 	{ "giuxtaposition/blink-cmp-copilot", lazy = false },
 	{ "codota/tabnine-nvim", build = "./dl_binaries.sh" },
-	"petertriho/cmp-git",
 	{
 		"yanganto/move.vim",
 		branch = "sui-move",
@@ -21,7 +19,6 @@ return {
 	"leoluz/nvim-dap-go",
 	"folke/which-key.nvim",
 	"gko/vim-coloresque",
-	"nvim-tree/nvim-tree.lua",
 	"rebelot/kanagawa.nvim",
 	{
 		"olrtg/nvim-emmet",
