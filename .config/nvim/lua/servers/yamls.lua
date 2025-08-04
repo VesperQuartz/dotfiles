@@ -16,3 +16,4 @@ vim.lsp.config("yamlls", {
 		},
 	},
 })
+vim.lsp.enable("systemd_ls")

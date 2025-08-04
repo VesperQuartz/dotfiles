@@ -71,8 +71,11 @@ bindswitch --reload --locked lid:on exec $lidclose
 
 bindsym $mod+x exec gdmflexiserver
 
-input "1739:52744:SYNA30D2:00_06CB:CE08" {
+input "type:touchpad" {
     dwt enabled
+    accel_profile adaptive
+    drag_lock disabled
+    dwtp enabled
     tap enabled
     natural_scroll enabled
     middle_emulation enabled
@@ -84,8 +87,11 @@ input "1:1:AT_Translated_Set_2_keyboard" {
 }
 
 input "7847:102:2.4G_Mouse" {
+    tap enabled
+    drag_lock disabled
     middle_emulation enabled
     dwt enabled
+    natural_scroll enabled
 }
 
 input "12625:4128:YICHIP_2.4G_Receiver_Consumer_Control" {

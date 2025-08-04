@@ -226,6 +226,7 @@ fi
 # The next line enables shell command completion for gcloud.
 if [ -f '/home/brown/app/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/brown/app/google-cloud-sdk/completion.zsh.inc'; fi
 source "$HOME/dprint_completion"
+source "$HOME/.config/zsh/fx.source"
 setopt EXTENDED_HISTORY
 fpath=(/home/brown/.local/share/zsh-completion/completions $fpath) # avalanche completion
 rm -f ~/.zcompdump; compinit # avalanche completion
