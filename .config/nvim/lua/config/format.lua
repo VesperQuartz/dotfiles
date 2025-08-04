@@ -10,6 +10,7 @@ require("conform").setup({
 		typescriptreact = { "biome", "biome-organize-imports" },
 		javascript = { "biome", "biome-organize-imports" },
 		typescript = { "biome", "biome-organize-imports" },
+		typst = { "typstyle" },
 		rust = { "rustfmt", "dioxus", lsp_format = "fallback" },
 		proto = { "buf", lsp_format = "fallback" },
 		tex = { "latexindent", args = "-w" },
@@ -33,6 +34,13 @@ require("conform").setup({
 			require_cwd = true,
 			cwd = require("conform.util").root_file({ ".git" }),
 			exit_codes = { 1 },
+		},
+		typstyle = {
+			command = "typstyle",
+			args = { "-i", "$FILENAME" },
+			stdin = false,
+			require_cwd = true,
+			cwd = require("conform.util").root_file({ ".git" }),
 		},
 		caddyfile = {
 			command = "caddy",

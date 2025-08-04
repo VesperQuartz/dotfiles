@@ -1,4 +1,5 @@
 vim.lsp.enable("texlab")
+vim.lsp.enable("tinymist")
 vim.lsp.config("texlab", {
 	settings = {
 		texlab = {
