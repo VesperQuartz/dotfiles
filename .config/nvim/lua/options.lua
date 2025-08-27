@@ -28,6 +28,7 @@ set.expandtab = true
 set.tabstop = 2 -- width that a <TAB> character displays as
 set.shiftwidth = 2 -- number of spaces to use for each step of (auto)indent
 set.softtabstop = 2 -- backspace after pressing <TAB> will remove up to this many spaces
+set.swapfile = false -- don't create a swapfile
 
 set.autoindent = true -- copy indent from current line when starting a new line
 set.smartindent = true -- even better autoindent (e.g. add indent after '{')

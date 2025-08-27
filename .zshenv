@@ -49,7 +49,7 @@ export ANDROID_PREFS_ROOT=/home/brown/Android/Sdk
 export EDITOR=$VISUAL
 export ELINKS_CONFDIR="$XDG_CONFIG_HOME"/elinks
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
+export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!git/"'
 export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
 export GEM=/home/brown/.local/share/gem/ruby/3.0.0/bin
 export GNUPGHOME="$XDG_DATA_HOME"/gnupg

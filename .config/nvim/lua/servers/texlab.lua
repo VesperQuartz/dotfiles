@@ -31,3 +31,15 @@ vim.lsp.config("texlab", {
 	},
 })
 require("lspconfig").marksman.setup({})
+
+vim.lsp.config("tinymist", {
+	cmd = { "tinymist" },
+	filetypes = { "typst" },
+	settings = {
+		formatterMode = "typstyle",
+		exportPdf = "onSave",
+		semanticTokens = "disable",
+		lint = { enabled = true },
+		preview = { refresh = "onSave" },
+	},
+})

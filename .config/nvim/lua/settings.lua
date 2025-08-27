@@ -14,11 +14,11 @@ require("servers..tsserver")
 require("lspconfig").puppet.setup({})
 require("config..mcp")
 require("config..companion")
--- require("config..copilot")
 require("servers..javals")
 require("servers..kotlinls")
 require("servers..solidity")
 require("config..theme")
+require("config..context")
 require("config..rest")
 require("config..dart")
 require("config..mini")
@@ -41,9 +41,31 @@ require("which-key").setup({})
 require("lspconfig").pyre.setup({})
 
 vim.cmd([[ autocmd BufRead,BufNewFile *.org set filetype=org ]])
+vim.cmd([[ autocmd BufRead,BufNewFile *.caddy set filetype=caddy ]])
 vim.cmd([[ autocmd BufRead,BufNewFile *.org set filetype=org ]])
 vim.cmd([[
 autocmd BufWinLeave *.* mkview
 autocmd BufWinEnter *.* silent! loadview
 ]])
+
+vim.api.nvim_create_autocmd("FileType", {
+	group = vim.api.nvim_create_augroup("EnableTreesitterHighlighting", { clear = true }),
+	desc = "Try to enable tree-sitter syntax highlighting",
+	pattern = "*", -- run on *all* filetypes
+	callback = function()
+		pcall(function()
+			vim.treesitter.start()
+		end)
+	end,
+})
+
 vim.lsp.inlay_hint.enable(true)
+vim.filetype.add({
+	extension = {
+		mdx = "mdx",
+	},
+})
+
+vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.treesitter.language.register("markdown", "mdx")
+require("nvim-autopairs").enable()

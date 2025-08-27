@@ -93,7 +93,6 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 # eval "$(pyenv init --path)"
 source /usr/share/doc/find-the-command/ftc.zsh
 plugins=(
-  mix
   zbell
   command-not-found
   vi-mode
@@ -109,7 +108,6 @@ plugins=(
   systemadmin
   rsync
   aws
-  thefuck
   virtualenv
   archlinux
   direnv
@@ -227,6 +225,7 @@ fi
 if [ -f '/home/brown/app/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/brown/app/google-cloud-sdk/completion.zsh.inc'; fi
 source "$HOME/dprint_completion"
 source "$HOME/.config/zsh/fx.source"
+source "$HOME/.config/zsh/node_bash_completion"
 setopt EXTENDED_HISTORY
 fpath=(/home/brown/.local/share/zsh-completion/completions $fpath) # avalanche completion
 rm -f ~/.zcompdump; compinit # avalanche completion

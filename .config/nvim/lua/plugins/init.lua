@@ -5,9 +5,6 @@ return {
 	},
 	{ "echasnovski/mini.nvim", version = "*" },
 	"p00f/clangd_extensions.nvim",
-	{ "zbirenbaum/copilot.lua", lazy = false },
-	{ "giuxtaposition/blink-cmp-copilot", lazy = false },
-	{ "codota/tabnine-nvim", build = "./dl_binaries.sh" },
 	{
 		"yanganto/move.vim",
 		branch = "sui-move",

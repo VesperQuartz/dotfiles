@@ -1,4 +1,4 @@
-require("mini.pairs").setup()
+-- require("mini.pairs").setup()
 require("mini.basics").setup()
 require("mini.jump2d").setup()
 require("mini.files").setup({

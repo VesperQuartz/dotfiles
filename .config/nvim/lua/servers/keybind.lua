@@ -11,7 +11,17 @@ local map = vim.keymap.set
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 map("n", "<space>e", vim.diagnostic.open_float)
 map("n", "<space>q", vim.diagnostic.setloclist)
+map("n", "[c", function()
+	require("treesitter-context").go_to_context(vim.v.count1)
+end, { silent = true })
+vim.api.nvim_create_user_command("OpenPdf", function()
+	local filepath = vim.api.nvim_buf_get_name(0)
+	if filepath:match("%.typ$") then
+		local pdf_path = filepath:gsub("%.typ$", ".pdf")
 
+		vim.system({ "open", pdf_path })
+	end
+end, {})
 -- Use LspAttach autocommand to only map the following keys
 -- after the language server attaches to the current buffer
 vim.api.nvim_create_autocmd("LspAttach", {
@@ -23,15 +33,20 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		-- Buffer local mappings.
 		-- See `:help vim.lsp.*` for documentation on any of the below functions
 		local opts = { buffer = ev.buf }
+		map("n", "gD", vim.lsp.buf.declaration, opts)
+		map("n", "gd", vim.lsp.buf.definition, opts)
 		map("n", "K", vim.lsp.buf.hover, opts)
+		map("n", "gi", vim.lsp.buf.implementation, opts)
 		map("n", "<C-k>", vim.lsp.buf.signature_help, opts)
 		map("n", "<space>wa", vim.lsp.buf.add_workspace_folder, opts)
 		map("n", "<space>wr", vim.lsp.buf.remove_workspace_folder, opts)
 		map("n", "<space>wl", function()
 			print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
 		end, opts)
+		map("n", "<space>D", vim.lsp.buf.type_definition, opts)
 		map("n", "<space>rn", vim.lsp.buf.rename, opts)
 		map({ "n", "v" }, "<space>ca", vim.lsp.buf.code_action, opts)
+		map("n", "gr", vim.lsp.buf.references, opts)
 		map("n", "<space>f", function()
 			vim.lsp.buf.format({ async = true })
 		end, opts)
@@ -54,6 +69,15 @@ map("n", "<C-h>", "<C-w>h", { silent = true })
 map("n", "<C-j>", "<C-w>j", { silent = true })
 map("n", "<C-k>", "<C-w>k", { silent = true })
 map("n", "<C-l>", "<C-w>l", { silent = true })
+
+-- Sort automatically by...
+map("n", "<leader>ff", ":FzfLua files<CR>", opts)
+map("n", "<leader>fb", ":FzfLua buffers<CR>", opts)
+map("n", "<leader>fg", ":FzfLua live_grep_native<CR>", opts)
+map("n", "<leader>fq", ":FzfLua grep_quickfix<CR>", opts)
+map("n", "<leader>fp", ":FzfLua grep_project<CR>", opts)
+map("n", "<leader>fd", ":FzfLua diagnostics_document<CR>", opts)
+map("n", "<space>fd", ":FzfLua diagnostics_workspace<CR>", opts)
 
 -- Sort automatically by...
 map("n", "<Space>bb", ":BufferOrderByBufferNumber<CR>", opts)

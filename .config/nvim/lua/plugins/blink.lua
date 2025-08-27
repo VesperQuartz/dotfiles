@@ -2,7 +2,6 @@ return {
 	"saghen/blink.cmp",
 	dependencies = {
 		"Kaiser-Yang/blink-cmp-avante",
-		-- "giuxtaposition/blink-cmp-copilot",
 		{ "echasnovski/mini.icons", version = false },
 		{
 			"supermaven-inc/supermaven-nvim",
@@ -90,18 +89,11 @@ return {
 					name = "Avante",
 					opts = {},
 				},
-				-- copilot = {
-				-- 	name = "copilot",
-				-- 	module = "blink-cmp-copilot",
-				-- 	score_offset = 100,
-				-- 	async = true,
-				-- },
 				supermaven = {
 					name = "supermaven",
 					module = "blink-cmp-supermaven",
 					async = true,
 				},
-
 				path = {
 					module = "blink.cmp.sources.path",
 					score_offset = 3,
@@ -126,7 +118,6 @@ return {
 		appearance = {
 			kind_icons = {
 				Maven = "",
-				Copilot = "",
 			},
 		},
 	},
