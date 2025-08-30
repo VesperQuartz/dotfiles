@@ -17,8 +17,6 @@ return {
 				{ section = "startup" },
 			},
 		},
-		indent = { enabled = true },
-		input = { enabled = true },
 		image = { enabled = true },
 		notifier = { enabled = true },
 		notify = { enabled = true },

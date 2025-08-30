@@ -229,3 +229,6 @@ source "$HOME/.config/zsh/node_bash_completion"
 setopt EXTENDED_HISTORY
 fpath=(/home/brown/.local/share/zsh-completion/completions $fpath) # avalanche completion
 rm -f ~/.zcompdump; compinit # avalanche completion
+
+# add Pulumi to the PATH
+export PATH=$PATH:/home/brown/.pulumi/bin

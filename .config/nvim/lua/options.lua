@@ -24,17 +24,18 @@ set.clipboard:prepend({ "unnamedplus" })
 set.completeopt:prepend("menuone,noselect,noinsert")
 
 -- Tab settings
-set.expandtab = true
+set.expandtab = false
 set.tabstop = 2 -- width that a <TAB> character displays as
 set.shiftwidth = 2 -- number of spaces to use for each step of (auto)indent
 set.softtabstop = 2 -- backspace after pressing <TAB> will remove up to this many spaces
-set.swapfile = false -- don't create a swapfile
-
 set.autoindent = true -- copy indent from current line when starting a new line
 set.smartindent = true -- even better autoindent (e.g. add indent after '{')
 
+set.swapfile = false -- don't create a swapfile
+
 set.background = "dark" -- configure Vim to use brighter colors
 vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
+vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
 -- Highlight on yank
 vim.cmd([[
   augroup YankHighlight

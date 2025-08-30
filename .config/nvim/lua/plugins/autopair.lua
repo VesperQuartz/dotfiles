@@ -1,10 +1,8 @@
 return {
-	"windwp/nvim-autopairs",
-	event = "InsertEnter",
-	config = true,
-	lazy = false,
+	"altermo/ultimate-autopair.nvim",
+	event = { "InsertEnter", "CmdlineEnter" },
+	branch = "v0.6", --recommended as each new version will have breaking changes
 	opts = {
-		check_ts = true,
-		enable_check_bracket_line = false,
+		--Config goes here
 	},
 }

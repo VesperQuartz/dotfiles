@@ -29,7 +29,7 @@ require("config..dap")
 require("config..noice")
 require("config..dropbar")
 require("dapui").setup()
-require("config..treesitter")
+-- require("config..treesitter")
 require("config..gitsign")
 require("config..format")
 require("colorizer").setup({
@@ -68,4 +68,3 @@ vim.filetype.add({
 
 vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 vim.treesitter.language.register("markdown", "mdx")
-require("nvim-autopairs").enable()
