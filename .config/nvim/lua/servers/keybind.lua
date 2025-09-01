@@ -24,39 +24,34 @@ vim.api.nvim_create_user_command("OpenPdf", function()
 end, {})
 -- Use LspAttach autocommand to only map the following keys
 -- after the language server attaches to the current buffer
-vim.api.nvim_create_autocmd("LspAttach", {
-	group = vim.api.nvim_create_augroup("UserLspConfig", {}),
-	callback = function(ev)
-		-- Enable completion triggered by <c-x><c-o>
-		vim.bo[ev.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
+-- Enable completion triggered by <c-x><c-o>
 
-		-- Buffer local mappings.
-		-- See `:help vim.lsp.*` for documentation on any of the below functions
-		local opts = { buffer = ev.buf }
-		map("n", "gD", vim.lsp.buf.declaration, opts)
-		map("n", "gd", vim.lsp.buf.definition, opts)
-		map("n", "K", vim.lsp.buf.hover, opts)
-		map("n", "gi", vim.lsp.buf.implementation, opts)
-		map("n", "<C-k>", vim.lsp.buf.signature_help, opts)
-		map("n", "<space>wa", vim.lsp.buf.add_workspace_folder, opts)
-		map("n", "<space>wr", vim.lsp.buf.remove_workspace_folder, opts)
-		map("n", "<space>wl", function()
-			print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-		end, opts)
-		map("n", "<space>D", vim.lsp.buf.type_definition, opts)
-		map("n", "<space>rn", vim.lsp.buf.rename, opts)
-		map({ "n", "v" }, "<space>ca", vim.lsp.buf.code_action, opts)
-		map("n", "gr", vim.lsp.buf.references, opts)
-		map("n", "<space>f", function()
-			vim.lsp.buf.format({ async = true })
-		end, opts)
-	end,
-})
-
-local opts = { noremap = true, silent = true }
 local lsp_flags = {
 	debounce_text_changes = 150,
 }
+
+local opts = { noremap = true, silent = true }
+-- Buffer local mappings.
+-- See `:help vim.lsp.*` for documentation on any of the below functions
+map("n", "gD", ":FzfLua lsp_declarations<CR>", opts)
+map("n", "gd", ":FzfLua lsp_definitions<CR>", opts)
+map("n", "K", vim.lsp.buf.hover, opts)
+map("n", "<space>gi", ":FzfLua lsp_implementations<CR>", opts)
+map("n", "gi", ":FzfLua lsp_implementations<CR>", opts)
+map("n", "<C-k>", vim.lsp.buf.signature_help, opts)
+map("n", "<space>wa", vim.lsp.buf.add_workspace_folder, opts)
+map("n", "<space>wr", vim.lsp.buf.remove_workspace_folder, opts)
+map("n", "<space>td", ":FzfLua lsp_typedefs<CR>", opts)
+map("n", "<space>wl", function()
+	print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+end)
+map("n", "<space>rn", vim.lsp.buf.rename, opts)
+map({ "n", "v" }, "<space>ca", ":FzfLua lsp_code_actions<CR>", opts)
+map("n", "<space>gr", ":FzfLua lsp_references<CR>", opts)
+map("n", "gr", ":FzfLua lsp_references<CR>", opts)
+map("n", "<space>f", function()
+	vim.lsp.buf.format({ async = true })
+end)
 
 --source lua & vim
 --map("n", "<leader>")

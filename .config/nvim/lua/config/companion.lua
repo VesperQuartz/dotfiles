@@ -20,13 +20,15 @@ require("codecompanion").setup({
 		},
 	},
 	adapters = {
-		openai = function()
-			return require("codecompanion.adapters").extend("openai", {
-				env = {
-					api_key = "cmd:bw get notes OPENAPI_KEY",
-				},
-			})
-		end,
+		http = {
+			openai = function()
+				return require("codecompanion.adapters").extend("openai", {
+					env = {
+						api_key = "cmd:bw get notes OPENAPI_KEY",
+					},
+				})
+			end,
+		},
 	},
 	extensions = {
 		mcphub = {
