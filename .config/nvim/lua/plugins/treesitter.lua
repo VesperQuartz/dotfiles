@@ -111,17 +111,6 @@ return {
 		end,
 	},
 	{
-		"nvim-treesitter/nvim-treesitter-context",
-		event = "BufRead",
-		dependencies = {
-			"nvim-treesitter/nvim-treesitter",
-			event = "BufRead",
-		},
-		opts = {
-			multiwindow = true,
-		},
-	},
-	{
 		"nvim-treesitter/nvim-treesitter-textobjects",
 		branch = "main",
 		keys = {

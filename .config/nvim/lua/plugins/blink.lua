@@ -2,12 +2,14 @@ return {
 	"saghen/blink.cmp",
 	dependencies = {
 		"Kaiser-Yang/blink-cmp-avante",
+		"echasnovski/mini.snippets",
 		{ "echasnovski/mini.icons", version = false },
 		{
 			"supermaven-inc/supermaven-nvim",
 			dependencies = { "huijiro/blink-cmp-supermaven" },
 			opts = {
 				-- @NOTE: the comment bellow say: only cmp (not blink.cmp) can handle the inline completion for now if disable on supermaven-nvim and maybe wrong comment.
+				snippets = { preset = "mini_snippets" },
 				disable_inline_completion = true, -- disables inline completion for use with cmp
 				disable_keymaps = false, -- disables built in keymaps for more manual control with blink.cmp
 				keymaps = {
@@ -41,17 +43,26 @@ return {
 					components = {
 						kind_icon = {
 							text = function(ctx)
-								local kind_icon, _, _ = require("mini.icons").get("lsp", ctx.kind)
+								local kind_icon, _, _ = MiniIcons.get("lsp", ctx.kind)
+								print(ctx.kind)
+								if ctx.kind == "Snippet" then
+									ctx.label_description = "Snippet"
+									return ""
+								end
+								-- if ctx.kind == "Property" then
+								-- 	ctx.label_description = "Assist"
+								-- 	return ""
+								-- end
 								return kind_icon
 							end,
 							highlight = function(ctx)
-								local _, hl, _ = require("mini.icons").get("lsp", ctx.kind)
+								local _, hl, _ = MiniIcons.get("lsp", ctx.kind)
 								return hl
 							end,
 						},
 						kind = {
 							highlight = function(ctx)
-								local _, hl, _ = require("mini.icons").get("lsp", ctx.kind)
+								local _, hl, _ = MiniIcons.get("lsp", ctx.kind)
 								return hl
 							end,
 						},
@@ -75,9 +86,16 @@ return {
 
 		signature = { window = { border = "single" }, enabled = true },
 		sources = {
-			default = { "supermaven", "avante", "lazydev", "lsp", "buffer", "path" },
+			default = { "supermaven", "avante", "lazydev", "lsp", "buffer", "path", "snippets" },
 			per_filetype = { codecompanion = { "codecompanion" } },
 			providers = {
+				snippets = {
+					min_keyword_length = 2,
+				},
+				buffer = {
+					min_keyword_length = 5,
+					max_items = 5,
+				},
 				lazydev = {
 					name = "LazyDev",
 					module = "lazydev.integrations.blink",
@@ -108,18 +126,8 @@ return {
 					},
 				},
 			},
-			transform_items = function(_, items)
-				return vim.tbl_filter(function(item)
-					return item.kind ~= require("blink.cmp.types").CompletionItemKind.Snippet
-				end, items)
-			end,
 		},
 		fuzzy = { implementation = "lua" },
-		appearance = {
-			kind_icons = {
-				Maven = "",
-			},
-		},
 	},
 	opts_extend = { "sources.default" },
 }

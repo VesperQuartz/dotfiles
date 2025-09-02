@@ -98,10 +98,27 @@ plugins=(
   vi-mode
   zsh-autosuggestions
   zsh-syntax-highlighting
+	httpie
   zig-shell-completions
+	man
+	profiles
+	eza
+	systemd
+	rsync
+	heroku
+	docker
+	docker-compose
   colorize
+	podman
   history
+	kubectl
+	postgres
+	minikube
+	bun
+	deno
+	direnv
   history-substring-search
+	kubectx
   httpie
   node
   nodenv

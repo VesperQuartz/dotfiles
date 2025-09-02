@@ -11,9 +11,7 @@ local map = vim.keymap.set
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 map("n", "<space>e", vim.diagnostic.open_float)
 map("n", "<space>q", vim.diagnostic.setloclist)
-map("n", "[c", function()
-	require("treesitter-context").go_to_context(vim.v.count1)
-end, { silent = true })
+
 vim.api.nvim_create_user_command("OpenPdf", function()
 	local filepath = vim.api.nvim_buf_get_name(0)
 	if filepath:match("%.typ$") then

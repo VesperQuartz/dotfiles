@@ -1,4 +1,5 @@
 return {
+	{ "rafamadriz/friendly-snippets", lazy = false },
 	{
 		"MeanderingProgrammer/render-markdown.nvim",
 		ft = { "markdown", "codecompanion" },
