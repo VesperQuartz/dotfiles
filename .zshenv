@@ -21,7 +21,7 @@ if [ "$XDG_SESSION_DESKTOP" = "sway" ] ; then
     # https://github.com/swaywm/sway/issues/595
     export _JAVA_AWT_WM_NONREPARENTING=1
 fi
-export STUDIO_JDK=/usr/lib/jvm/java-11-openjdk/
+export STUDIO_JDK=/usr/lib/jvm/java-21-openjdk/
 export AWT_TOOLKIT=MToolkit
 . "/home/brown/.local/share/cargo/env"
 export QT_SCALE_FACTOR=1
@@ -62,10 +62,10 @@ export GTK_USE_PORTAL=0
 export HTML=/var/www/html
 export ICEAUTHORITY="$XDG_CACHE_HOME"/ICEauthority
 export IPYTHONDIR="${XDG_CONFIG_HOME}/ipython"
-export JAVA_HOME=/usr/lib/jvm/java-17-openjdk
-export JAVA_JDK=/usr/lib/jvm/java-17-openjdk/bin
-export JAVA_BIN=/usr/lib/jvm/java-17-openjdk/bin
-export IDEA_JDK=/usr/lib/jvm/java-17-openjdk
+export JAVA_HOME=/usr/lib/jvm/java-21-openjdk
+export JAVA_JDK=/usr/lib/jvm/java-21-openjdk/bin
+export JAVA_BIN=/usr/lib/jvm/java-21-openjdk/bin
+export IDEA_JDK=/usr/lib/jvm/java-21-openjdk
 export CHROME_EXECUTABLE=google-chrome-stable
 export JDTLS_HOME=/home/brown/eclipse.jdt.ls
 export JUPYTER_CONFIG_DIR="$XDG_CONFIG_HOME"/jupyter
@@ -139,4 +139,7 @@ export DPRINT=/home/brown/.dprint/bin/
 export PATH="/home/brown/.local/share/solana/install/active_release/bin:$SCRIPTS:$DPRINT:$HOME/.amplify/bin:$PATH"
 export AWS_ID=824636437844
 export TERM=xterm-ghostty
-export PATH=$PATH:/home/brown/.pulumi/bin
+export PATH=$PATH:/home/brown/.pulumi/bin:/home/brown/.daml/bin
+export BROWSER=zen-browser
+export MANPAGER='nvim +Man!'
+export UV_THREADPOOL_SIZE=12

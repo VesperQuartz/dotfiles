@@ -17,7 +17,6 @@ return {
 				{ section = "startup" },
 			},
 		},
-		image = { enabled = true },
 		notifier = { enabled = true },
 		notify = { enabled = true },
 		lazygit = { enabled = true },

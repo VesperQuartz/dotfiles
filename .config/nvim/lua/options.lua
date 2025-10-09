@@ -17,6 +17,7 @@ vim.opt.splitright = true
 --Set highlight on search
 set.hlsearch = true
 set.relativenumber = true
+set.wrap = false
 
 --Enable mouse mode
 

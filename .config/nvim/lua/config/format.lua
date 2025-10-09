@@ -1,5 +1,6 @@
 -- Utilities for creating configurations
 require("conform").setup({
+	notify_on_error = true,
 	formatters_by_ft = {
 		lua = { "stylua" },
 		awk = { "awk" },
@@ -15,21 +16,30 @@ require("conform").setup({
 		proto = { "buf", lsp_format = "fallback" },
 		tex = { "latexindent", args = "-w" },
 		caddyfile = { "caddyfile" },
+		xml = { "xmllint", args = "--tabs" },
 		solidity = { "forge", lsp_format = "fallback" },
 		python = { "black" },
 		["_"] = { "trim_whitespace" },
 	},
-	format_on_save = {
-		-- I recommend these options. See :help conform.format for details.
-		lsp_format = "fallback",
-		timeout_ms = 5000,
-	},
-	notify_on_error = true,
-	notify_no_formatters = true,
+	format_on_save = function(bufnr)
+		local lsp_format_opt = "never"
+		return {
+			timeout_ms = 500,
+			lsp_format = lsp_format_opt,
+		}
+	end,
 	formatters = {
 		proto = {
 			command = "buf",
 			args = { "format", "$FILENAME" },
+			stdin = true,
+			require_cwd = true,
+			cwd = require("conform.util").root_file({ ".git" }),
+			exit_codes = { 1 },
+		},
+		xml = {
+			command = "xmllint",
+			args = { "--format", "$FILENAME" },
 			stdin = true,
 			require_cwd = true,
 			cwd = require("conform.util").root_file({ ".git" }),

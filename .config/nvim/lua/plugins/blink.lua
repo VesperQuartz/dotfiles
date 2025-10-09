@@ -29,6 +29,8 @@ return {
 			preset = "enter",
 			["<S-Tab>"] = { "select_prev", "fallback" },
 			["<Tab>"] = { "select_next", "fallback" },
+			["<A-k>"] = { "snippet_forward", "fallback" },
+			["<A-j"] = { "snippet_backward", "fallback" },
 		},
 
 		completion = {
@@ -86,11 +88,12 @@ return {
 
 		signature = { window = { border = "single" }, enabled = true },
 		sources = {
-			default = { "supermaven", "avante", "lazydev", "lsp", "buffer", "path", "snippets" },
+			default = { "supermaven", "lazydev", "lsp", "buffer", "path", "snippets" },
 			per_filetype = { codecompanion = { "codecompanion" } },
 			providers = {
 				snippets = {
 					min_keyword_length = 2,
+					max_items = 15,
 				},
 				buffer = {
 					min_keyword_length = 5,

@@ -1,4 +1,5 @@
 vim.lsp.enable("html")
+vim.lsp.enable("xmllint")
 vim.lsp.enable("tailwindcss")
 vim.lsp.enable("astro")
 vim.lsp.enable("svelte")

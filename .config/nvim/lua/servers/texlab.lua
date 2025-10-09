@@ -30,7 +30,8 @@ vim.lsp.config("texlab", {
 		},
 	},
 })
-require("lspconfig").marksman.setup({})
+
+vim.lsp.enable("marksman")
 
 vim.lsp.config("tinymist", {
 	cmd = { "tinymist" },

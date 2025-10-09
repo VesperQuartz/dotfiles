@@ -112,6 +112,7 @@ plugins=(
 	podman
   history
 	kubectl
+	mvn
 	postgres
 	minikube
 	bun
@@ -249,3 +250,4 @@ rm -f ~/.zcompdump; compinit # avalanche completion
 
 # add Pulumi to the PATH
 export PATH=$PATH:/home/brown/.pulumi/bin
+source /usr/share/doc/find-the-command/ftc.zsh

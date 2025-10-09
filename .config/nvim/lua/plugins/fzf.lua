@@ -16,7 +16,7 @@ return {
 			select = true, -- This registers FzfLua as the vim.ui.select backend
 		},
 		files = {
-			cmd = 'rg --files --hidden --glob "!.git/*"',
+			cmd = 'rg --files --hidden --glob "!.git/*" --glob "!node_modules*"',
 		},
 	},
 }

@@ -11,7 +11,6 @@ require("servers..rust_analyzer")
 require("servers..sqls")
 require("servers..texlab")
 require("servers..tsserver")
-require("lspconfig").puppet.setup({})
 require("config..mcp")
 require("config..companion")
 require("servers..javals")
@@ -36,8 +35,6 @@ require("colorizer").setup({
 	html = { names = false },
 })
 require("which-key").setup({})
-require("lspconfig").pyre.setup({})
-
 vim.cmd([[ autocmd BufRead,BufNewFile *.org set filetype=org ]])
 vim.cmd([[ autocmd BufRead,BufNewFile *.caddy set filetype=caddy ]])
 vim.cmd([[ autocmd BufRead,BufNewFile *.org set filetype=org ]])
