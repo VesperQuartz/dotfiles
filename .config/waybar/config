@@ -7,7 +7,7 @@
     "sway/window"
   ],
   "modules-center": [
-    "clock",
+    "custom/clock",
     "memory"
   ],
   "modules-right": [
@@ -24,6 +24,10 @@
     "format": " {}",
     "on-click": "sleep 0.1 && eww open --toggle dashboard",
     "tooltip": false
+  },
+	"custom/clock": {
+		"exec": "echo '  '$(date +'%H:%M')'  '",
+		"interval": 5
   },
   "wlr/taskbar": {
     "format": "{icon}",

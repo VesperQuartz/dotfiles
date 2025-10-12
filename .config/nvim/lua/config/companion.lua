@@ -24,7 +24,7 @@ require("codecompanion").setup({
 			openai = function()
 				return require("codecompanion.adapters").extend("openai", {
 					env = {
-						api_key = "cmd:bw get notes OPENAPI_KEY",
+						api_key = "cmd:echo $COMPANION_KEY",
 					},
 				})
 			end,

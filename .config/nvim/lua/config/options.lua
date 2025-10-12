@@ -11,6 +11,7 @@ set.compatible = false -- disable compatibility mode with vi
 -- set termguicolors to enable highlight groups
 vim.opt.termguicolors = true
 vim.opt.splitright = true
+vim.lsp.offset_encoding = "utf-16"
 
 -- vim.lsp.set_log_level("debug")
 
@@ -38,13 +39,18 @@ set.background = "dark" -- configure Vim to use brighter colors
 vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
 vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
 -- Highlight on yank
-vim.cmd([[
-  augroup YankHighlight
-    autocmd!
-    autocmd TextYankPost * silent! lua vim.highlight.on_yank()
-  augroup end
-]])
-
 vim.g.markdown_fenced_languages = {
 	"ts=typescript",
 }
+vim.lsp.inlay_hint.enable(true)
+vim.filetype.add({
+	extension = {
+		mdx = "mdx",
+	},
+})
+
+vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.treesitter.language.register("markdown", "mdx")
+local color = { "kanagawa", "catppuccin", "catppuccin-mocha", "tokyonight", "dracula", "rose-pine-moon" }
+math.randomseed(os.time())
+vim.cmd.colorscheme(color[math.random(#color)])

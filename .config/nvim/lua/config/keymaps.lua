@@ -1,36 +1,13 @@
--- local lspconfig = require("lspconfig")
---[[ local lsp_defaults = lspconfig.util.default_config
-
-lsp_defaults.capabilities =
-vim.tbl_deep_extend("force", lsp_defaults.capabilities, require("cmp_nvim_lsp").default_capabilities()) ]]
--- Mappings.
---
 local map = vim.keymap.set
 
--- Global mappings.
--- See `:help vim.diagnostic.*` for documentation on any of the below functions
 map("n", "<space>e", vim.diagnostic.open_float)
 map("n", "<space>q", vim.diagnostic.setloclist)
-
-vim.api.nvim_create_user_command("OpenPdf", function()
-	local filepath = vim.api.nvim_buf_get_name(0)
-	if filepath:match("%.typ$") then
-		local pdf_path = filepath:gsub("%.typ$", ".pdf")
-
-		vim.system({ "open", pdf_path })
-	end
-end, {})
--- Use LspAttach autocommand to only map the following keys
--- after the language server attaches to the current buffer
--- Enable completion triggered by <c-x><c-o>
 
 local lsp_flags = {
 	debounce_text_changes = 150,
 }
 
 local opts = { noremap = true, silent = true }
--- Buffer local mappings.
--- See `:help vim.lsp.*` for documentation on any of the below functions
 map("n", "gD", ":FzfLua lsp_declarations<CR>", opts)
 map("n", "gd", ":FzfLua lsp_definitions<CR>", opts)
 map("n", "K", vim.lsp.buf.hover, opts)
@@ -50,14 +27,7 @@ map("n", "gr", ":FzfLua lsp_references<CR>", opts)
 map("n", "<space>f", function()
 	vim.lsp.buf.format({ async = true })
 end)
-
---source lua & vim
---map("n", "<leader>")
-
--- Magic buffer-picking mode
 map("n", "<C-p>", ":BufferPick<CR>", opts)
-
--- Window movement
 map("n", "<C-h>", "<C-w>h", { silent = true })
 map("n", "<C-j>", "<C-w>j", { silent = true })
 map("n", "<C-k>", "<C-w>k", { silent = true })
@@ -159,6 +129,3 @@ map({ "n", "v" }, "<C-a>", ":CodeCompanionActions<cr>", { noremap = true, silent
 map({ "n", "v" }, "<LocalLeader>a", ":CodeCompanionChat Toggle<cr>", { noremap = true, silent = true })
 map("v", "ga", ":CodeCompanionChat Add<cr>", { noremap = true, silent = true })
 map({ "n", "v" }, "<leader>aa", ":CodeCompanionChat Toggle<cr>", { noremap = true, silent = true })
-
--- Expand 'cc' into 'CodeCompanion' in the command line
-vim.cmd([[cab cc CodeCompanion]])
