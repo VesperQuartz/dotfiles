@@ -86,7 +86,7 @@ return {
 			},
 		},
 
-		signature = { window = { border = "single" }, enabled = true },
+		signature = { window = { border = "single" }, enabled = false },
 		sources = {
 			default = { "supermaven", "lazydev", "lsp", "buffer", "path", "snippets" },
 			per_filetype = { codecompanion = { "codecompanion" } },

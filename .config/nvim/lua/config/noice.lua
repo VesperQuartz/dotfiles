@@ -13,10 +13,10 @@ require("noice").setup({
 			["cmp.entry.get_documentation"] = false, -- requires hrsh7th/nvim-cmp
 		},
 		signature = {
-			enabled = false,
+			enabled = true,
 			auto_open = {
-				enabled = false,
-				trigger = false, -- Automatically show signature help when typing a trigger character from the LSP
+				enabled = true,
+				trigger = true, -- Automatically show signature help when typing a trigger character from the LSP
 				luasnip = false, -- Will open signature help when jumping to Luasnip insert nodes
 				throttle = 50, -- Debounce lsp signature help request by 50ms
 			},
