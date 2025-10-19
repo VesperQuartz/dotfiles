@@ -1,7 +1,6 @@
 return {
 	"saghen/blink.cmp",
 	dependencies = {
-		"Kaiser-Yang/blink-cmp-avante",
 		"echasnovski/mini.snippets",
 		{ "echasnovski/mini.icons", version = false },
 		{
@@ -104,11 +103,6 @@ return {
 					module = "lazydev.integrations.blink",
 					-- make lazydev completions top priority (see `:h blink.cmp`)
 					score_offset = 100,
-				},
-				avante = {
-					module = "blink-cmp-avante",
-					name = "Avante",
-					opts = {},
 				},
 				supermaven = {
 					name = "supermaven",

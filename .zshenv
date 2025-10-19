@@ -143,3 +143,4 @@ export PATH=$PATH:/home/brown/.pulumi/bin:/home/brown/.daml/bin
 export BROWSER=zen-browser
 export MANPAGER='nvim +Man!'
 export UV_THREADPOOL_SIZE=12
+export CLOUDSDK_PYTHON=/usr/bin/python

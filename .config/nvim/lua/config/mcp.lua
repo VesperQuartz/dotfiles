@@ -1,6 +1,6 @@
 require("mcphub").setup({
 	extensions = {
-		avante = {
+		codecompanion = {
 			make_slash_commands = true, -- make /slash commands from MCP server prompts
 		},
 	},

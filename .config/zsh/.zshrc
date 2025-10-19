@@ -94,33 +94,25 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 source /usr/share/doc/find-the-command/ftc.zsh
 plugins=(
   zbell
-  command-not-found
   vi-mode
   zsh-autosuggestions
   zsh-syntax-highlighting
-	httpie
-  zig-shell-completions
 	man
 	profiles
 	eza
-	systemd
 	rsync
 	heroku
 	docker
 	docker-compose
   colorize
 	podman
-  history
 	kubectl
 	mvn
 	postgres
 	minikube
-	bun
-	deno
 	direnv
   history-substring-search
 	kubectx
-  httpie
   node
   nodenv
   systemadmin
@@ -134,6 +126,7 @@ plugins=(
   colored-man-pages
 )
 source $ZSH/oh-my-zsh.sh
+source /opt/google-cloud-cli/completion.zsh.inc
 # User configuration
 #ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 export MANPATH="/usr/local/man:$MANPATH"
@@ -251,3 +244,8 @@ rm -f ~/.zcompdump; compinit # avalanche completion
 # add Pulumi to the PATH
 export PATH=$PATH:/home/brown/.pulumi/bin
 source /usr/share/doc/find-the-command/ftc.zsh
+autoload -U compinit; compinit
+
+# tabtab source for packages
+# uninstall by removing these lines
+[[ -f ~/.config/tabtab/zsh/__tabtab.zsh ]] && . ~/.config/tabtab/zsh/__tabtab.zsh || true
