@@ -28,8 +28,8 @@ return {
 			preset = "enter",
 			["<S-Tab>"] = { "select_prev", "fallback" },
 			["<Tab>"] = { "select_next", "fallback" },
-			["<A-k>"] = { "snippet_forward", "fallback" },
-			["<A-j"] = { "snippet_backward", "fallback" },
+			["<A-l>"] = { "snippet_forward", "fallback" },
+			["<A-h"] = { "snippet_backward", "fallback" },
 		},
 
 		completion = {

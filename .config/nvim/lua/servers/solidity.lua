@@ -1,10 +1,13 @@
-vim.lsp.enable("solidity")
+vim.lsp.enable("solidity_ls")
 vim.lsp.enable("solc")
-vim.lsp.config("solidity", {
+vim.lsp.config("solidity_ls", {
 	settings = {
 		solidity = {
 			includePath = "",
-			remapping = { ["@OpenZeppelin/"] = "OpenZeppelin/openzeppelin-contracts@4.6.0/" },
+			remappingsUnix = {
+				["@OpenZeppelin/"] = "OpenZeppelin/openzeppelin-contracts@4.6.0/",
+				["forge-std"] = "lib/forge-std/src/",
+			},
 			allowPaths = {},
 		},
 	},

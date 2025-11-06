@@ -4,6 +4,21 @@ vim.lsp.enable("jsonls")
 vim.lsp.enable("prismals")
 vim.lsp.enable("prismals")
 vim.lsp.enable("vtsls")
+
+vim.lsp.config("jsonls", {
+	settings = {
+		json = {
+			schemas = require("schemastore").json.schemas({
+				select = {
+					".eslintrc",
+					"package.json",
+				},
+			}),
+			validate = { enable = true },
+		},
+	},
+})
+
 -- vim.lsp.enable("tsgo")
 vim.lsp.enable("biome")
 -- vim.lsp.enable("denols")

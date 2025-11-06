@@ -1,3 +1,5 @@
+# Add deno completions to search path
+if [[ ":$FPATH:" != *":/home/brown/.config/zsh/completions:"* ]]; then export FPATH="/home/brown/.config/zsh/completions:$FPATH"; fi
 typeset -g POWERLEVEL9K_INSTANT_PROMPT=off
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
@@ -121,10 +123,19 @@ plugins=(
   virtualenv
   archlinux
   direnv
+	zoxide
   copypath
   gitignore
   colored-man-pages
 )
+
+function j() {
+    __zoxide_z "$@"
+}
+
+function ji() {
+    __zoxide_zi "$@"
+}
 source $ZSH/oh-my-zsh.sh
 source /opt/google-cloud-cli/completion.zsh.inc
 # User configuration
@@ -214,18 +225,15 @@ export BEMENU_OPTS="--tb '#6272a4'\
  --sf '#50fa7b'\
  --scb '#282a36'\
  --scf '#ff79c6'"
-source ${HOME}/.zshenv
+
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
 source ${HOME}/.config/broot/launcher/bash/br
-source "$HOME/.config/zsh/proto"
 
 # bun completions
 [ -s "${HOME}/.bun/_bun" ] && source "${HOME}/.bun/_bun"
 [[ -f ~/.config/tabtab/zsh/__tabtab.zsh ]] && . ~/.config/tabtab/zsh/__tabtab.zsh || true
 export PATH="$PATH:/opt/nvim-linux64/bin"
-source "$HOME/.config/zsh/atlas"
-source "$HOME/.config/zsh/zxoide"
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/home/brown/app/google-cloud-sdk/path.zsh.inc' ]; then
@@ -234,18 +242,20 @@ fi
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/home/brown/app/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/brown/app/google-cloud-sdk/completion.zsh.inc'; fi
-source "$HOME/dprint_completion"
-source "$HOME/.config/zsh/fx.source"
-source "$HOME/.config/zsh/node_bash_completion"
 setopt EXTENDED_HISTORY
 fpath=(/home/brown/.local/share/zsh-completion/completions $fpath) # avalanche completion
 rm -f ~/.zcompdump; compinit # avalanche completion
+autoload -U compinit; compinit
 
 # add Pulumi to the PATH
-export PATH=$PATH:/home/brown/.pulumi/bin
+export PATH=$PATH:$HOME/.pulumi/bin
 source /usr/share/doc/find-the-command/ftc.zsh
-autoload -U compinit; compinit
 
 # tabtab source for packages
 # uninstall by removing these lines
+
+source ${HOME}/.zshenv
 [[ -f ~/.config/tabtab/zsh/__tabtab.zsh ]] && . ~/.config/tabtab/zsh/__tabtab.zsh || true
+. "$HOME/.deno/env"
+
+eval "$(zoxide init zsh)"

@@ -144,3 +144,5 @@ export BROWSER=zen-browser
 export MANPAGER='nvim +Man!'
 export UV_THREADPOOL_SIZE=12
 export CLOUDSDK_PYTHON=/usr/bin/python
+export ENCORE_INSTALL="/home/brown/.encore"
+export PATH="$ENCORE_INSTALL/bin:$PATH"

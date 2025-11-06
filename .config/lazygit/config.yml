@@ -3,7 +3,6 @@ gui:
   showCommandLog: true
   nerdFontsVersion: "3"
   commandLogSize: 36
-
   theme:
     activeBorderColor:
       - "#a6e3a1" # Green
@@ -21,7 +20,7 @@ gui:
     unstagedChangesColor:
       - red # Red
 git:
-  paging:
-    colorArg: never
-    pager: delta --dark --paging=never
+  pagers:
+    - colorArg: never
+      pager: delta --dark --paging=never
   branchLogCmd: "git log --graph --color=always --abbrev-commit --decorate --date=relative --pretty=medium --oneline {{branchName}} --"
