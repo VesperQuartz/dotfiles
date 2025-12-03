@@ -1,0 +1,46 @@
+# Example aliases
+alias bat="bat --no-pager -p"
+alias nvim=nvim
+alias qbittorrent='QT_SCALE_FACTOR_ROUNDING_POLICY=Round qbittorrent'
+alias nin="echo 31021805010|wl-copy"
+alias linkedin="echo https://www.linkedin.com/in/abdulwaheed-j-64561494|wl-copy"
+alias kssh="kitty +kitten ssh"
+alias zshconfig="helix ~/.config/zsh/.zshrc"
+alias less="less -Q"
+alias man='man -P "less -Q"'
+alias kshow='kitty +kitten icat'
+alias c='clear'
+alias cls='clear'
+alias vi='nvim'
+alias ohmyzsh="helix ~/.oh-my-zsh"
+alias wanip="dig +short myip.opendns.com @resolver1.opendns.com"
+alias dd='dd status=progress'
+alias _='sudo'
+alias gitls='exa --git --git-ignore'
+alias fastfetch='fastfetch -l none'
+alias rsync='rsync --progress -h'
+alias _i='sudo -i'
+alias please='sudo'
+alias rcopy='rsync -ah --progress'
+# alias cast='asciinema play'
+alias mouse='sudo modprobe -r psmouse && sudo modprobe psmouse'
+alias svn="svn --config-dir $XDG_CONFIG_HOME/subversion"
+alias wget=wget --hsts-file="$XDG_DATA_HOME/wget-hsts"
+alias gdb="gdb -q"
+alias rust-gdb="rust-gdb -q"
+alias l="eza --icons --group-directories-first"
+alias exa="eza --icons --group-directories-first"
+alias statusof="systemctl status"
+alias ip="ip -color -f inet"
+
+ovpn() {
+  sudo openvpn "$HOME/Downloads/ovpn/nl-free-913043.protonvpn.tcp.ovpn"
+}
+
+setup-remix() {
+  pnpx create-remix@latest
+}
+
+nobg() {
+  magick "$1" -transparent white -fuzz 25% -fill none -draw 'color 1,1 floodfill' "$2"
+}

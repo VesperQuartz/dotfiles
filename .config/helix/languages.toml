@@ -1,0 +1,107 @@
+[[language]]
+name = "html"
+formatter = { command = 'prettier', args = ["--parser", "html"] }
+auto-format = true
+
+[[language]]
+name = "ejs"
+formatter = { command = 'prettier', args = ["--parser", "html"] }
+auto-format = true
+file-types = ["ejs"]
+language-servers = ["vscode-html-language-server"]
+
+[[language]]
+name = "python"
+language-servers = [ "pyright", "ruff" ]
+
+[language-server.pyright.config.python.analysis]
+typeCheckingMode = "basic"
+
+[language-server.ruff]
+command = "ruff-lsp"
+
+[language-server.ruff.config.settings]
+args = ["--ignore", "E501"]
+
+[language.formatter]
+command = "black"
+args = ["--line-length", "88", "--quiet", "-"]
+
+[language-server]
+deno = { command = "deno", args = [ "lsp" ]}
+emmet-ls = { command = "emmet-ls", args = [ "--stdio" ]}
+
+[language-server.eslint]
+command = "vscode-eslint-language-server"
+args = ["--stdio"]
+
+[language-server.eslint.config]
+codeActionsOnSave = { mode = "all", "source.fixAll.eslint" = true }
+format = { enable = true }
+nodePath = "/home/brown/.nvm/versions/node/v23.1.0/bin/node"
+quiet = false
+rulesCustomizations = []
+run = "onType"
+validate = "on"
+experimental = {}
+problems = { shortenToSingleLine = false }
+
+[language-server.eslint.config.codeAction]
+disableRuleComment = { enable = true, location = "separateLine" }
+showDocumentation = { enable = false }
+
+[language-server.vscode-json-language-server.config]
+json = { validate = { enable = true }, format = { enable = true } }
+provideFormatter = true
+
+[language-server.vscode-css-language-server.config]
+css = { validate = { enable = true } }
+scss = { validate = { enable = true } }
+less = { validate = { enable = true } }
+provideFormatter = true
+
+
+[[language]]
+name = "typescript"
+language-servers = [ {name="typescript-language-server", except-features=["inlay-hints"]}, "eslint", "emmet-ls" ]
+# formatter = { command = "dprint", args = [ "fmt", "--stdin", "typescript" ] }
+formatter = { command = 'prettier', args = ["--parser", "typescript"] }
+auto-format = true
+
+[[language]]
+name = "tsx"
+# language-servers = [ "deno", "eslint", "emmet-ls" ]
+language-servers = [ {name="typescript-language-server", except-features=["inlay-hints"]}, "eslint", "emmet-ls", "tailwindcss-ls" ]
+# formatter = { command = "dprint", args = [ "fmt", "--stdin", "tsx" ] }
+formatter = { command = 'prettier', args = ["--parser", "typescript"] }
+auto-format = true
+
+[[language]]
+name = "javascript"
+language-servers = [ {name="typescript-language-server", except-features=["inlay-hints"]}, "eslint", "emmet-ls" ]
+formatter = { command = 'prettier', args = ["--parser", "typescript"] }
+# formatter = { command = "dprint", args = [ "fmt", "--stdin", "javascript" ] }
+auto-format = true
+
+[[language]]
+name = "jsx"
+language-servers = [ {name="typescript-language-server", except-features=["inlay-hints"]}, "eslint", "emmet-ls", "tailwindcss-ls" ]
+formatter = { command = "dprint", args = [ "fmt", "--stdin", "jsx" ] }
+auto-format = true
+
+[[language]]
+name = "json"
+formatter = { command = "dprint", args = [ "fmt", "--stdin", "json" ] }
+auto-format = true
+
+[[language]]
+name = "html"
+language-servers = [ "vscode-html-language-server", "emmet-ls", "tailwindcss-ls" ]
+formatter = { command = 'prettier', args = ["--parser", "html"] }
+auto-format = true
+
+[[language]]
+name = "css"
+language-servers = [ "vscode-css-language-server", "emmet-ls" ]
+formatter = { command = 'prettier', args = ["--parser", "css"] }
+auto-format = true

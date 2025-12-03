@@ -1,0 +1,30 @@
+theme = "rose_pine_moon"
+
+[editor]
+bufferline = "multiple"
+line-number = "relative"
+mouse = false
+auto-save = true
+auto-format = true
+completion-replace = true
+true-color = true
+color-modes= true
+cursorline = true
+
+[editor.statusline]
+mode.normal = "NORMAL"
+mode.insert = "INSERT"
+mode.select = "SELECT"
+right = ["diagnostics", "selections", "register", "position", "file-encoding", "version-control"]
+
+[editor.lsp]
+display-messages = true
+display-inlay-hints = true
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+select = "underline"
+
+[editor.file-picker]
+hidden = false

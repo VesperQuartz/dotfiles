@@ -1,0 +1,61 @@
+[mgr]
+sort_reverse = true
+sort_dir_first = true
+linemode = "mtime"
+show_symlink = true
+mouse_events = ["drag"]
+[preview]
+max_width = 800
+max_height = 600
+image_filter = "nearest"
+cache_dir = "/home/brown/.cache/yazi"
+image_quality = 90
+
+[opener]
+edit = [
+  { run = 'helix "$@"', block = true, for = "unix" },
+  { run = 'nvim "$@"', block = true, for = "unix" },
+  { run = 'pinta "$@"', block = false, for = "unix" },
+]
+
+play = [
+  { run = 'vlc "$@"', orphan = true, for = "unix" },
+  { run = 'mpv "$@"', orphan = true, for = "unix" },
+  { run = 'clapper "$@"', block = false, for = "unix" },
+]
+
+open = [{ run = 'xdg-open "$@"', desc = "Open" }]
+
+[open]
+prepend_rules = [
+  { name = "*.json", use = "edit" },
+
+  { name = "*.html", use = [
+    "edit",
+  ] },
+]
+rules = [
+  { mime = "image/*", use = [
+    "open",
+    "edit",
+  ] },
+  { mime = "video/*", use = [
+    "open",
+    "play",
+  ] },
+  { mime = "*", use = [
+    "open",
+  ] },
+]
+
+[plugin]
+prepend_previewers = [
+  { name = "*.md", run = "glow" },
+  { mime = "text/csv", run = "miller" },
+]
+append_previewers = [{ name = "*", run = "hexyl" }]
+
+[[mgr.prepend_keymap]]
+on = "!"
+run = 'shell "$SHELL" --block --confirm'
+desc = "Open shell here"

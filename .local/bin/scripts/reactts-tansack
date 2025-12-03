@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+pnpm dlx create-vite@latest "$1" --template react-swc-ts
+
+cd "$1" || exit
+
+pnpm add \
+  react-cookie \
+  @tanstack/react-query \
+  @tanstack/react-router \
+  @tanstack/router-devtools \
+  @tanstack/router-plugin \
+  @tanstack/react-query-devtools \
+  zod \
+  await-to-ts \
+  ts-pattern \
+  ky
+
+pnpm add -D \
+  tailwindcss \
+  postcss \
+  autoprefixer \
+  @types/node
+
+pnpm dlx tailwindcss init -p --ts
+
+source /home/brown/dotfiles/.local/bin/scripts/template.react-tansack
+
+pnpm dlx shadcn@latest init -d
