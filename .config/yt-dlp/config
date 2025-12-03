@@ -1,0 +1,10 @@
+--sponsorblock-remove all
+--cookies-from-browser chrome
+--write-subs
+--sub-langs "en.*"
+--write-auto-subs
+--embed-subs
+--compat-options no-keep-subs
+--add-chapters
+--embed-thumbnail
+--embed-metadata

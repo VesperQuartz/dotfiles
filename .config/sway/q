@@ -1,0 +1,23 @@
+[0;1;31m×[0m caddy.service - Caddy web server
+     Loaded: loaded (]8;;file://mrlectus/usr/lib/systemd/system/caddy.service\/usr/lib/systemd/system/caddy.service]8;;\; [0;1;32menabled[0m; preset: [0;1;38:5:185mdisabled[0m)
+     Active: [0;1;31mfailed[0m (Result: exit-code) since Tue 2026-02-24 09:27:37 WAT; 14s ago
+ Invocation: 180878e9e42849ed918d40a65c0777f3
+       Docs: ]8;;https://caddyserver.com/docs/\https://caddyserver.com/docs/]8;;\
+    Process: 603390 ExecStartPre=/usr/bin/caddy validate --config /etc/caddy/Caddyfile (code=exited, status=0/SUCCESS)
+    Process: 603404 ExecStart=/usr/bin/caddy run --environ --config /etc/caddy/Caddyfile [0;1;31m(code=exited, status=1/FAILURE)[0m
+    Process: 603421 ExecStopPost=/usr/bin/rm -f /run/caddy/admin.socket (code=exited, status=0/SUCCESS)
+   Main PID: 603404 (code=exited, status=1/FAILURE)
+     Status: "[0;1;36mloading new config: http app module: start: listening on :80: listen tcp :80: bind: address already in use[0m"
+   Mem peak: 24.2M
+        CPU: 445ms
+
+Feb 24 09:27:37 mrlectus caddy[603404]: {"level":"info","ts":1771921657.4447672,"logger":"pki.ca.local","msg":"root certificate is already trusted by system","path":"storage:pki/authorities/local/root.crt"}
+Feb 24 09:27:37 mrlectus caddy[603404]: {"level":"info","ts":1771921657.4449918,"logger":"http","msg":"enabling HTTP/3 listener","addr":":443"}
+Feb 24 09:27:37 mrlectus caddy[603404]: {"level":"info","ts":1771921657.4452777,"logger":"http.log","msg":"server running","name":"srv0","protocols":["h1","h2","h3"]}
+Feb 24 09:27:37 mrlectus caddy[603404]: {"level":"info","ts":1771921657.4454074,"logger":"http","msg":"servers shutting down with eternal grace period"}
+Feb 24 09:27:37 mrlectus caddy[603404]: {"level":"info","ts":1771921657.4454753,"logger":"tls.cache.maintenance","msg":"stopped background certificate maintenance","cache":"0xc000642700"}
+Feb 24 09:27:37 mrlectus caddy[603404]: {"level":"info","ts":1771921657.4455879,"msg":"maxprocs: No GOMAXPROCS change to reset"}
+Feb 24 09:27:37 mrlectus caddy[603404]: Error: loading initial config: loading new config: http app module: start: listening on :80: listen tcp :80: bind: address already in use
+Feb 24 09:27:37 mrlectus systemd[1]: [0;1;39m[0;1;31m[0;1;39mcaddy.service: Main process exited, code=exited, status=1/FAILURE[0m
+Feb 24 09:27:37 mrlectus systemd[1]: [0;1;38:5:185m[0;1;39m[0;1;38:5:185mcaddy.service: Failed with result 'exit-code'.[0m
+Feb 24 09:27:37 mrlectus systemd[1]: [0;1;31m[0;1;39m[0;1;31mFailed to start Caddy web server.[0m

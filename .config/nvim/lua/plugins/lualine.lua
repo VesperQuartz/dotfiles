@@ -1,0 +1,5 @@
+return {
+	event = "VeryLazy",
+	"nvim-lualine/lualine.nvim",
+	dependencies = { "nvim-tree/nvim-web-devicons", lazy = true },
+}

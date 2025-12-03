@@ -1,0 +1,4 @@
+*/**.log
+.config/lazygit/state.yml
+.zcompdump*
+.config/mpv/watch_later/
