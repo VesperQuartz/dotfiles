@@ -1,0 +1,18 @@
+[[mgr.prepend_keymap]]
+on = ["l"]
+run = "plugin smart-enter"
+desc = "Enter the child directory, or open the file"
+
+[[mgr.prepend_keymap]]
+on = ["p"]
+run = "plugin --sync smart-paste"
+desc = "Paste into the hovered directory or CWD"
+
+[[mgr.prepend_keymap]]
+on = ["y"]
+run = [
+  "yank",
+  '''
+	shell --confirm 'for path in "$@"; do echo "file://$path"; done | wl-copy -t text/uri-list'
+''',
+]

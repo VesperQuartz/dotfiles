@@ -1,0 +1,6 @@
+#!/bin/env bash
+
+file_path="/home/brown/Documents/impo"
+nums=$(cat ${file_path} | fzf)
+ip=($nums)
+ffplay "rtsp://192.168.2.${ip[0]}:554/stream1"

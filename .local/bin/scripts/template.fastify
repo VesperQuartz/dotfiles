@@ -1,0 +1,429 @@
+#!/bin/env bash
+set -eou pipefail
+
+cat <<-EOF >.env
+PORT=3000
+FASTIFY_ADDRESS=0.0.0.0
+NODE_ENV=development
+FASTIFY_OPTIONS=true
+COOKIE_SECRET=$(openssl rand -base64 32)
+JWT_SECRET=$(openssl rand -base64 32)
+DB_USER=postgres
+DB_PASS=$(openssl rand -base64 32)
+DB_NAME=${1}
+DB_HOST=127.0.0.1
+DB_PORT=5432
+DATABASE_URL="postgresql://\${DB_USER}:\${DB_PASS}@\${DB_HOST}:\${DB_PORT}/\${DB_NAME}"
+REDIS_PASSWORD=$(openssl rand -base64 32)
+REDIS_PORT=6379
+REDIS_DATABASES=16
+EOF
+
+cat <<-EOF >./src/plugins/external/cookie.ts
+import fp from "fastify-plugin";
+import fastifyCookie, { FastifyCookieOptions } from "@fastify/cookie";
+
+export default fp(
+  async (fastify) => {
+    await fastify.register(fastifyCookie, {
+      secret: fastify.config.COOKIE_SECRET,
+      parseOptions: {
+        secure: true,
+        httpOnly: true,
+        path: "/",
+        sameSite: "none",
+        partitioned: true,
+      },
+    } as FastifyCookieOptions);
+  },
+  {
+    dependencies: ["env"],
+  },
+);
+EOF
+
+cat <<-EOF >./src/plugins/external/cors.ts
+import fp from "fastify-plugin";
+import cors from "@fastify/cors";
+
+export default fp(async (fastify) => {
+  await fastify.register(cors, {
+    credentials: true,
+    origin: [
+    /http(s)?:\/\/localhost:([0-9]+)?/,
+    /http(s)?:\/\/127.0.0.1:([0-9]+)?/,
+      "https://mrlectus.local",
+    ],
+    exposedHeaders: ["Authorization", "Set-Cookie"],
+  });
+});
+EOF
+
+cat <<-EOF >./src/plugins/external/csrf.ts
+import fp from "fastify-plugin";
+import fastifyCsrf from "@fastify/csrf-protection";
+
+export default fp(async (fastify) => {
+  await fastify.register(fastifyCsrf, { cookieOpts: { signed: true } });
+});
+EOF
+
+cat <<-EOF >./src/plugins/external/env.ts
+import fp from "fastify-plugin";
+import fastifyEnv from "@fastify/env";
+
+const schema = {
+  type: "object",
+  required: ["PORT"],
+  properties: {
+    PORT: {
+      type: "number",
+      default: 3000,
+    },
+    JWT_SECRET: {
+      type: "string",
+    },
+    COOKIE_SECRET: {
+      type: "string",
+    },
+    BASE_URL: {
+      type: "string",
+    },
+    DATABASE_URL: {
+      type: "string",
+    },
+    REDIS_PASSWORD: {
+      type: "string",
+    }
+  },
+};
+
+const options = {
+  dotenv: true,
+  confKey: "config",
+  schema: schema,
+};
+
+export default fp(async (fastify) => {
+  try {
+    await fastify.register(fastifyEnv, options);
+  } catch (error) {
+    console.error(error);
+  }
+}, {
+name: "env"
+});
+
+declare module "fastify" {
+  interface FastifyInstance {
+    config: {
+      PORT: string;
+      JWT_SECRET: string;
+      BASE_URL: string;
+      COOKIE_SECRET: string;
+      DATABASE_URL: string;
+      REDIS_PASSWORD: string;
+    };
+  }
+}
+EOF
+
+cat <<-EOF >./src/plugins/external/database.ts
+import { drizzle, NodePgDatabase } from "drizzle-orm/node-postgres";
+import pkg from "pg";
+import fp from "fastify-plugin";
+import * as schema from "../../models/schema.js";
+
+export default fp(async (fastify) => {
+  const pool = new pkg.Pool({
+    connectionString: fastify.config.DATABASE_URL,
+  });
+  const db = drizzle(pool, { schema });
+  fastify.decorate("db", db);
+},   {
+    dependencies: ["env"],
+  },
+);
+
+declare module "fastify" {
+  export interface FastifyInstance {
+    db: NodePgDatabase<typeof schema> & {
+      \$client: pkg.Pool;
+    };
+  }
+}
+EOF
+
+cat <<-EOF >./src/plugins/external/helmet.ts
+import helmet from "@fastify/helmet"
+import fp from "fastify-plugin"
+export default fp(async (fastify) => {
+  await fastify.register(helmet, { global: true });
+});
+EOF
+
+cat <<-EOF >./src/plugins/external/jwt.ts
+import fp from "fastify-plugin";
+import fastifyJwt from "@fastify/jwt";
+
+export default fp(
+  async (fastify) => {
+    await fastify.register(fastifyJwt, {
+      secret: fastify.config.JWT_SECRET,
+    });
+  },
+  {
+    dependencies: ["env"],
+  },
+);
+EOF
+
+cat <<-EOF >./src/plugins/external/rate.ts
+import fp from "fastify-plugin";
+import fastifyRateLimit from "@fastify/rate-limit";
+
+export default fp(async (fastify) => {
+  await fastify.register(fastifyRateLimit, {
+    max: 100,
+    timeWindow: "15 minute",
+  });
+});
+EOF
+
+cat <<-EOF >./src/plugins/external/redis.ts
+import fp from "fastify-plugin";
+import fastifyRedis from "@fastify/redis";
+
+export default fp(async (fastify) => {
+  await fastify.register(fastifyRedis, {
+    host: '127.0.0.1', 
+    port: 6379,
+    password: fastify.config.REDIS_PASSWORD,
+    family: 4
+  });
+}, {
+    dependencies: ["env"],
+  },
+);
+EOF
+
+cat <<-EOF >./src/plugins/external/multipart.ts
+import fp from "fastify-plugin";
+import fastifyMultipart from "@fastify/multipart";
+
+export default fp(async (fastify) => {
+  await fastify.register(fastifyMultipart);
+});
+EOF
+
+cat <<-EOF >./src/plugins/external/socket.ts
+import fp from "fastify-plugin";
+import fastifyWebsocket from "@fastify/websocket";
+
+export default fp(async (fastify) => {
+  await fastify.register(fastifyWebsocket);
+});
+EOF
+
+cat <<-EOF >./src/routes/root.routes.ts
+import { FastifyPluginAsyncZod } from "fastify-type-provider-zod";
+import { z } from "zod";
+
+const root: FastifyPluginAsyncZod = async function (fastify, _opts) {
+  fastify.route({
+    method: 'GET',
+    url: '/',
+    schema: {
+      querystring: z.object({
+        name: z.string().min(4),
+      }),
+      response: {
+        200: z.string(),
+      },
+    },
+    handler: (req, res) => {
+      res.send(req.query.name);
+    },
+  });
+};
+
+export default root;
+EOF
+
+mkdir ./src/models
+cat <<-EOF >./src/models/root.models.ts
+import fp from "fastify-plugin";
+export default fp(async (fastify) => {
+  //TODO
+});
+EOF
+
+cat <<-EOF >./src/models/schema.ts
+import { pgTable, varchar } from "drizzle-orm/pg-core";
+import { createId } from "@paralleldrive/cuid2";
+export const usersTable = pgTable("users", {
+  id: varchar("id")
+    .primaryKey()
+    .\$defaultFn(() => createId()),
+  password: varchar("password", { length: 255 }).notNull(),
+  email: varchar("email", { length: 255 }).notNull().unique(),
+});
+EOF
+
+cat <<-EOF >./src/app.ts
+import * as path from 'path';
+import AutoLoad, {AutoloadPluginOptions} from '@fastify/autoload';
+import { FastifyPluginAsync } from 'fastify';
+import { fileURLToPath } from 'url'
+import fastifySwagger from '@fastify/swagger';
+import fastifySwaggerUI from '@fastify/swagger-ui';
+import {
+  jsonSchemaTransform,
+  serializerCompiler,
+  validatorCompiler,
+} from 'fastify-type-provider-zod';
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
+
+export type AppOptions = {
+} & Partial<AutoloadPluginOptions>;
+
+
+// Pass --options via CLI arguments in command to enable these options.
+const options: AppOptions = {
+  options: {
+logger: {
+    transport: {
+      target: "@fastify/one-line-logger",
+    },
+  },
+
+}
+  }
+
+const app: FastifyPluginAsync<AppOptions> = async (
+    fastify,
+    opts
+): Promise<void> => {
+  fastify.setValidatorCompiler(validatorCompiler);
+  fastify.setSerializerCompiler(serializerCompiler);
+
+  fastify.register(fastifySwagger, {
+    openapi: {
+      info: {
+        title: 'SampleApi',
+        description: 'Sample backend service',
+        version: '1.0.0',
+      },
+      servers: [{
+          url: "http://127.0.0.1:3000",
+          description: "Development server",
+        },],
+    },
+    transform: jsonSchemaTransform,
+  });
+
+  fastify.register(fastifySwaggerUI, {
+    routePrefix: '/api-docs',
+  });
+
+  void fastify.register(AutoLoad, {
+    dir: path.join(__dirname, 'plugins'),
+    options: opts,
+    forceESM: true
+  })
+
+  void fastify.register(AutoLoad, {
+    dir: path.join(__dirname, 'routes'),
+    options: opts,
+    forceESM: true,
+    autoHooks: true,
+    ignorePattern: /.*(\.js|\.ts)/,
+    indexPattern: /.*routes(\.ts|\.js|.\cjs)/i,
+    autoHooksPattern: /.*hooks(\.ts|\.js|.\cjs)/i,
+    cascadeHooks: true,
+  })
+
+  void fastify.register(AutoLoad, {
+    dir: path.join(__dirname, "models"),
+    options: opts,
+    ignorePattern: /.*(\.js|\.ts)/,
+    indexPattern: /.*models(\.ts|\.js|.\cjs)/i,
+    forceESM: true,
+  });
+};
+
+export default app;
+export { app, options }
+EOF
+
+cat <<-EOF >./drizzle.config.ts
+import "dotenv/config";
+import { defineConfig } from "drizzle-kit";
+
+export default defineConfig({
+  out: "./drizzle",
+  schema: "./src/models/schema.ts",
+  dialect: "postgresql",
+  dbCredentials: {
+    url: process.env.DATABASE_URL!,
+  },
+});
+EOF
+cat <<-EOF >./compose.yaml
+---
+services:
+  ${1}-db:
+    image: postgres:16.3-alpine3.20
+    env_file:
+      - .env
+    environment:
+      POSTGRES_DB: \${DB_NAME}
+      POSTGRES_USER: \${DB_USER}
+      POSTGRES_PASSWORD: \${DB_PASS}
+    ports:
+      - 5432:5432
+    volumes:
+      - ./pgdata:/var/lib/postgres/data
+  ${1}-cache:
+    image: redis:7.4.1-alpine3.20
+    restart: always
+    ports:
+      - "6379:6379"
+    env_file:
+      - .env
+    command: redis-server --save 20 1 --loglevel warning --requirepass "\${REDIS_PASSWORD}"
+    volumes:
+      - ./redis-data:/root/redis
+      - /etc/redis/redis.conf:/usr/local/etc/redis/redis.conf
+EOF
+
+cat <<-EOF >./tsconfig.json
+{
+  "extends": "fastify-tsconfig",
+  "compilerOptions": {
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ]
+    },
+    "outDir": "dist",
+    "sourceMap": false,
+    "baseUrl": "./",
+    "moduleResolution": "NodeNext",
+    "module": "NodeNext",
+    "target": "ES2022",
+    "esModuleInterop": true
+  },
+  "tsc-alias": {
+    "verbose": false,
+    "resolveFullPaths": true
+  },
+  "include": [
+    "src/**/*.ts",
+    "src"
+  ]
+}
+EOF
+echo "Fastify setup complete"
