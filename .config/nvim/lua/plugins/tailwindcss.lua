@@ -1,9 +1,17 @@
 return {
 	{ "norcalli/nvim-colorizer.lua", lazy = false },
 	{
-		"themaxmarchuk/tailwindcss-colors.nvim",
-		config = function()
-			require("tailwindcss-colors").setup()
-		end,
+		lazy = false,
+		"luckasRanarison/tailwind-tools.nvim",
+		name = "tailwind-tools",
+		build = ":UpdateRemotePlugins",
+		dependencies = {
+			"nvim-treesitter/nvim-treesitter",
+		},
+		opts = {
+			conceal = {
+				enabled = true,
+			},
+		}, -- your configuration
 	},
 }

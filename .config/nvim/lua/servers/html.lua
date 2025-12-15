@@ -13,18 +13,18 @@ vim.lsp.config("mdx_analyzer", {
 	settings = {},
 })
 
-vim.lsp.config("tailwindcss", {
-	settings = {
-		tailwindCSS = {
-			experimental = {
-				classRegex = {
-					{ "cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]", 'class: "(.*)"' },
-					{ "cx\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)" },
-				},
-				includeLanguages = {
-					rust = "html",
-				},
-			},
-		},
-	},
-})
+-- vim.lsp.config("tailwindcss", {
+-- 	settings = {
+-- 		tailwindCSS = {
+-- 			experimental = {
+-- 				classRegex = {
+-- 					{ "cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]", 'class: "(.*)"' },
+-- 					{ "cx\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)" },
+-- 				},
+-- 				includeLanguages = {
+-- 					rust = "html",
+-- 				},
+-- 			},
+-- 		},
+-- 	},
+-- })
