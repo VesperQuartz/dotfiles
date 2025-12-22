@@ -7,11 +7,30 @@ return {
 		build = ":UpdateRemotePlugins",
 		dependencies = {
 			"nvim-treesitter/nvim-treesitter",
+			"neovim/nvim-lspconfig",
 		},
 		opts = {
 			conceal = {
 				enabled = true,
 			},
-		}, -- your configuration
+			server = {
+				override = true,
+				filetypes = {
+					"html",
+					"css",
+					"scss",
+					"javascript",
+					"javascriptreact",
+					"typescript",
+					"typescriptreact",
+					"vue",
+					"svelte",
+					"markdown",
+					"vue",
+					"json",
+					"yaml",
+				},
+			},
+		},
 	},
 }

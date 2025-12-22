@@ -28,6 +28,19 @@ require("conform").setup({
 			lsp_format = lsp_format_opt,
 		}
 	end,
+	format_after_save = function()
+		local t_attached = vim.tbl_contains(
+			vim.tbl_map(function(c)
+				return c.name
+			end, vim.lsp.get_clients()),
+			"tailwindcss"
+		)
+		if not t_attached or not pcall(require, "tailwind-tools") then
+			return
+		end
+		vim.cmd("TailwindSort")
+		return { lsp_format = "fallback" }
+	end,
 	formatters = {
 		proto = {
 			command = "buf",
