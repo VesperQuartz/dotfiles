@@ -1,36 +1,18 @@
 return {
 	{ "norcalli/nvim-colorizer.lua", lazy = false },
+	{ "brenoprata10/nvim-highlight-colors", lazy = false },
 	{
-		lazy = false,
-		"luckasRanarison/tailwind-tools.nvim",
-		name = "tailwind-tools",
-		build = ":UpdateRemotePlugins",
-		dependencies = {
-			"nvim-treesitter/nvim-treesitter",
-			"neovim/nvim-lspconfig",
-		},
-		opts = {
-			conceal = {
-				enabled = true,
-			},
-			server = {
-				override = true,
-				filetypes = {
-					"html",
-					"css",
-					"scss",
-					"javascript",
-					"javascriptreact",
-					"typescript",
-					"typescriptreact",
-					"vue",
-					"svelte",
-					"markdown",
-					"vue",
-					"json",
-					"yaml",
-				},
-			},
-		},
+		"razak17/tailwind-fold.nvim",
+		opts = {},
+		dependencies = { "nvim-treesitter/nvim-treesitter" },
+		ft = { "html", "svelte", "astro", "vue", "typescriptreact", "php", "blade", "css" },
+	},
+	{
+		"y3owk1n/tailwind-autosort.nvim",
+		version = "*", -- remove this if you want to follow `main` branch
+		event = "VeryLazy",
+		dependencies = { "nvim-treesitter/nvim-treesitter" },
+		---@type TailwindAutoSort.Config
+		opts = {}, -- your configuration
 	},
 }

@@ -4,3 +4,4 @@ require("lsp-colors").setup({
 	Information = "#0db9d7",
 	Hint = "#10B981",
 })
+require("nvim-highlight-colors").setup({})
