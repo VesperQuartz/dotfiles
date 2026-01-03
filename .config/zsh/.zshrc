@@ -246,6 +246,7 @@ setopt EXTENDED_HISTORY
 fpath=(/home/brown/.local/share/zsh-completion/completions $fpath) # avalanche completion
 rm -f ~/.zcompdump; compinit # avalanche completion
 autoload -U compinit; compinit
+autoload zmv
 
 # add Pulumi to the PATH
 export PATH=$PATH:$HOME/.pulumi/bin

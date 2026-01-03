@@ -21,6 +21,7 @@ vim.lsp.config("jsonls", {
 
 -- vim.lsp.enable("tsgo")
 vim.lsp.enable("biome")
+vim.lsp.enable("oxlint")
 
 -- vim.lsp.enable("denols")
 -- vim.lsp.config("denols", {

@@ -1,5 +1,6 @@
 return {
 	{ "rafamadriz/friendly-snippets", lazy = false },
+	{ "https://codeberg.org/esensar/nvim-dev-container" },
 	{
 		"MeanderingProgrammer/render-markdown.nvim",
 		ft = { "markdown", "codecompanion" },

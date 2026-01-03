@@ -16,6 +16,8 @@ end)
 return {
 	max_fps = 120,
 	enable_kitty_graphics = true,
+	front_end = "WebGpu",
+	webgpu_power_preference = "HighPerformance",
 	enable_wayland = true,
 	font_shaper = "Harfbuzz",
 	font = wezterm.font({ family = "MonaspiceNe NF" }),
@@ -48,7 +50,7 @@ return {
 		},
 	},
 	term = "xterm-kitty",
-	color_scheme = "Dracula+",
+	color_scheme = "Brewer (dark) (terminal.sexy)",
 	colors = {
 		visual_bell = "#202020",
 		tab_bar = {
@@ -128,12 +130,12 @@ return {
 	default_cursor_style = "SteadyBar",
 	cursor_thickness = 3,
 	detect_password_input = true,
-	window_background_opacity = 0.95,
+	window_background_opacity = 1,
 	text_background_opacity = 1.5,
 	enable_tab_bar = true,
 	exit_behavior_messaging = "None",
 	hyperlink_rules = wezterm.default_hyperlink_rules(),
-	font_size = 15,
+	font_size = 16,
 	harfbuzz_features = {
 		"calt",
 		"liga",
@@ -169,9 +171,9 @@ return {
 		{ key = "{", mods = "SHIFT|ALT", action = act.MoveTabRelative(-1) },
 		{ key = "}", mods = "SHIFT|ALT", action = act.MoveTabRelative(1) },
 		{ key = "t", mods = "ALT", action = act.SpawnTab("DefaultDomain") },
-		{ key = "S", mods = "LEADER", action = wezterm.action({ EmitEvent = "save_session" }) },
-		{ key = "L", mods = "LEADER", action = wezterm.action({ EmitEvent = "load_session" }) },
-		{ key = "R", mods = "LEADER", action = wezterm.action({ EmitEvent = "restore_session" }) },
+		{ key = "S", mods = "ALT", action = wezterm.action({ EmitEvent = "save_session" }) },
+		{ key = "L", mods = "ALT", action = wezterm.action({ EmitEvent = "load_session" }) },
+		{ key = "R", mods = "ALT", action = wezterm.action({ EmitEvent = "restore_session" }) },
 		{
 			key = "-",
 			mods = "ALT",

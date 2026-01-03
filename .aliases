@@ -32,6 +32,14 @@ alias l="eza --icons --group-directories-first"
 alias exa="eza --icons --group-directories-first"
 alias statusof="systemctl status"
 alias ip="ip -color -f inet"
+alias -s js='$EDITOR'
+alias -s ts='$EDITOR'
+alias -s go='$EDITOR'
+alias -s rs='$EDITOR'
+alias -s sh='$EDITOR'
+alias -s jsx='$EDITOR'
+alias -s tsx='$EDITOR'
+alias -s json='jq .'
 
 ovpn() {
   sudo openvpn "$HOME/Downloads/ovpn/nl-free-913043.protonvpn.tcp.ovpn"
