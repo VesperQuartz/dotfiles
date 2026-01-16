@@ -74,7 +74,11 @@ map("v", "k", "gk", { silent = true })
 -- turn off search highlighting with <CR> (carriage-return)
 map("n", "<CR>", ":nohlsearch<CR><CR>", opts)
 map("n", "<F14>", ":NvimTreeToggle()<CR>", opts)
-map("n", "<S-F1>", function()
+-- map("n", "<S-F1>", function()
+-- 	require("mini.files").open()
+-- end)
+--
+map("n", "<F13>", function()
 	require("mini.files").open()
 end)
 

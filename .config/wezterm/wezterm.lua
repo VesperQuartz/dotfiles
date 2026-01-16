@@ -135,7 +135,7 @@ return {
 	enable_tab_bar = true,
 	exit_behavior_messaging = "None",
 	hyperlink_rules = wezterm.default_hyperlink_rules(),
-	font_size = 16,
+	font_size = 18,
 	harfbuzz_features = {
 		"calt",
 		"liga",

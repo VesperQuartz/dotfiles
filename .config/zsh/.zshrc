@@ -93,28 +93,18 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 # export PYENV_ROOT="$HOME/.pyenv"
 # export PATH="$PYENV_ROOT/bin:$PATH"
 # eval "$(pyenv init --path)"
-source /usr/share/doc/find-the-command/ftc.zsh
 plugins=(
   zbell
   vi-mode
   zsh-autosuggestions
   zsh-syntax-highlighting
-	man
-	profiles
-	eza
 	rsync
-	heroku
-	docker
-	docker-compose
   colorize
-	podman
 	kubectl
-	mvn
 	postgres
 	minikube
 	direnv
   history-substring-search
-	kubectx
   node
   nodenv
   systemadmin
@@ -136,11 +126,13 @@ function j() {
 function ji() {
     __zoxide_zi "$@"
 }
+
 source $ZSH/oh-my-zsh.sh
 source /opt/google-cloud-cli/completion.zsh.inc
 # User configuration
 #ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 export MANPATH="/usr/local/man:$MANPATH"
+source ${HOME}/.config/zsh/.zshenv
 
 # You may need to manually set your language environment
 
@@ -183,7 +175,7 @@ export WINEPREFIX="$XDG_DATA_HOME"/wine
 export RUST=${HOME}/.cargo/bin
 export HISTFILE="$XDG_STATE_HOME"/zsh/histoy
 export RUSTUP_HOME="$XDG_DATA_HOME"/rustup
-export PATH=/usr/local/bin:$JDTLS_HOME:$GO:$LTEX:$GEM:$TOMCAT:$SCALA_BIN:$LOCAL_BIN:$QT5:$RUST:$VSCodium:$VIMRUNTIME:$ANDROID_HOME:$ANDROID_EMULATOR_HOME:$ANDROID_PREFS_ROOT/build-tools/29.0.3:$P4MERGE:$JAVA_JDK:$ANDROID_PREFS_ROOT/emulator/:$LOCAL_BIN:$ANDROID_PREFS_ROOT/system-images/:$SASS:$DART:$ROBO_3T:$NODE:$GROOVY_BIN:$GRADEL_BIN:/usr/bin:/bin:/usr/local/games:/usr/games:$HOME/.local/bin:/usr/share/games:/usr/local/sbin:/usr/sbin:/sbin:~/.local/bin:/usr/local/lib/nodejs/bin:/snap/bin:$MVN_HOME:$MVN_BIN:~/.config/composer/vendor/bin:$STUDIO_HOME:$PATH
+export PATH="/usr/local/bin:$JDTLS_HOME:$GO:$LTEX:$GEM:$TOMCAT:$SCALA_BIN:$LOCAL_BIN:$QT5:$RUST:$VSCodium:$VIMRUNTIME:$ANDROID_HOME:$ANDROID_EMULATOR_HOME:$ANDROID_PREFS_ROOT/build-tools/29.0.3:$P4MERGE:$JAVA_JDK:$ANDROID_PREFS_ROOT/emulator/:$LOCAL_BIN:$ANDROID_PREFS_ROOT/system-images/:$SASS:$DART:$ROBO_3T:$NODE:$GROOVY_BIN:$GRADEL_BIN:/usr/bin:/bin:/usr/local/games:/usr/games:$HOME/.local/bin:/usr/share/games:/usr/local/sbin:/usr/sbin:/sbin:~/.local/bin:/usr/local/lib/nodejs/bin:/snap/bin:$MVN_HOME:$MVN_BIN:~/.config/composer/vendor/bin:$STUDIO_HOME:$PATH"
 
 # pnpm
 export PNPM_HOME="${HOME}/.local/share/pnpm"
@@ -250,12 +242,14 @@ autoload zmv
 
 # add Pulumi to the PATH
 export PATH=$PATH:$HOME/.pulumi/bin
-source /usr/share/doc/find-the-command/ftc.zsh
+
+for file in "$HOME/.config/zsh/completions"/*; do
+	source "$file"
+done
 
 # tabtab source for packages
 # uninstall by removing these lines
 
-source ${HOME}/.zshenv
 [[ -f ~/.config/tabtab/zsh/__tabtab.zsh ]] && . ~/.config/tabtab/zsh/__tabtab.zsh || true
 . "$HOME/.deno/env"
 

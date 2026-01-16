@@ -1,2 +1,2 @@
 #!/bin/env bash
-wpctl set-default "$(wpctl status | grep Sinks -A 10 | grep "Family 17h/19h/1ah HD" | awk '{ print $2 }' | tr -d '.')"
+wpctl set-default "$(wpctl status | grep Sinks -A 25 | grep "Ryzen HD Audio Controller" | awk '{ print $2 }' | tr -d '.')"

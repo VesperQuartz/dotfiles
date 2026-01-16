@@ -1,5 +1,12 @@
 return {
 	{ "rafamadriz/friendly-snippets", lazy = false },
+	{ "kosayoda/nvim-lightbulb", lazy = false },
+	{
+		"chrisgrieser/nvim-recorder",
+		dependencies = "rcarriga/nvim-notify", -- optional
+		opts = {}, -- required even with default settings, since it calls `setup()`
+		lazy = false,
+	},
 	{ "https://codeberg.org/esensar/nvim-dev-container" },
 	{
 		"MeanderingProgrammer/render-markdown.nvim",
@@ -16,7 +23,28 @@ return {
 	"mfussenegger/nvim-dap",
 	{ "rcarriga/nvim-dap-ui", dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" } },
 	"leoluz/nvim-dap-go",
-	"folke/which-key.nvim",
+	{
+		"fei6409/log-highlight.nvim",
+		opts = {},
+	},
+	{
+		"folke/which-key.nvim",
+		event = "VeryLazy",
+		opts = {
+			-- your configuration comes here
+			-- or leave it empty to use the default settings
+			-- refer to the configuration section below
+		},
+		keys = {
+			{
+				"<leader>?",
+				function()
+					require("which-key").show({ global = false })
+				end,
+				desc = "Buffer Local Keymaps (which-key)",
+			},
+		},
+	},
 	"gko/vim-coloresque",
 	"rebelot/kanagawa.nvim",
 	{
@@ -28,11 +56,6 @@ return {
 	{
 		"windwp/nvim-ts-autotag",
 		lazy = false,
-	},
-	{
-		"chrisgrieser/nvim-early-retirement",
-		config = true,
-		event = "VeryLazy",
 	},
 	{ "isobit/vim-caddyfile", lazy = false },
 	"mfussenegger/nvim-jdtls",

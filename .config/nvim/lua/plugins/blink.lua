@@ -2,6 +2,8 @@ return {
 	"saghen/blink.cmp",
 	dependencies = {
 		"echasnovski/mini.snippets",
+		"joelazar/blink-calc",
+		"bydlw98/blink-cmp-env",
 		{ "echasnovski/mini.icons", version = false },
 		{
 			"supermaven-inc/supermaven-nvim",
@@ -87,9 +89,17 @@ return {
 
 		signature = { window = { border = "single" }, enabled = false },
 		sources = {
-			default = { "supermaven", "lazydev", "lsp", "buffer", "path", "snippets" },
+			default = { "supermaven", "lazydev", "lsp", "buffer", "path", "snippets", "env", "calc" },
 			per_filetype = { codecompanion = { "codecompanion" } },
 			providers = {
+				env = {
+					name = "Env",
+					module = "blink-cmp-env",
+					opts = {
+						show_braces = false,
+						show_documentation_window = true,
+					},
+				},
 				snippets = {
 					min_keyword_length = 2,
 					max_items = 15,
@@ -108,6 +118,10 @@ return {
 					name = "supermaven",
 					module = "blink-cmp-supermaven",
 					async = true,
+				},
+				calc = {
+					name = "Calc",
+					module = "blink-calc",
 				},
 				path = {
 					module = "blink.cmp.sources.path",
