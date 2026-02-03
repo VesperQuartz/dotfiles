@@ -4,7 +4,9 @@ return {
 	{
 		"chrisgrieser/nvim-recorder",
 		dependencies = "rcarriga/nvim-notify", -- optional
-		opts = {}, -- required even with default settings, since it calls `setup()`
+		opts = {
+			stage = "bottom",
+		}, -- required even with default settings, since it calls `setup()`
 		lazy = false,
 	},
 	{ "https://codeberg.org/esensar/nvim-dev-container" },

@@ -6,6 +6,13 @@ vim.lsp.enable("prismals")
 vim.lsp.enable("vtsls")
 
 vim.lsp.config("jsonls", {
+	filetypes = {
+		"json",
+		"jsonc",
+		"json5",
+		"jsonl",
+		"jsonls",
+	},
 	settings = {
 		json = {
 			schemas = require("schemastore").json.schemas({
@@ -77,9 +84,21 @@ vim.lsp.config("vtsls", {
 	complete_function_calls = true,
 	autoUseWorkspaceTsdk = true,
 	settings = {
+		vtsls = {
+			maxTsServerMemory = 8192,
+			enableMoveToFileCodeAction = true,
+			autoUseWorkspaceTsdk = true,
+			experimental = {
+				completion = {
+					enableServerSideFuzzyMatch = true,
+					entriesLimit = 20,
+				},
+			},
+		},
 		refactor_auto_rename = true,
 		complete_function_calls = true,
 		autoUseWorkspaceTsdk = true,
+		maxTsServerMemory = 8192,
 		typescript = {
 			preferences = {
 				quoteStyle = "double",

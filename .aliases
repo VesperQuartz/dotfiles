@@ -1,6 +1,5 @@
 # Example aliases
 alias bat="bat --no-pager -p"
-alias nvim=nvim
 alias qbittorrent='QT_SCALE_FACTOR_ROUNDING_POLICY=Round qbittorrent'
 alias nin="echo 31021805010|wl-copy"
 alias linkedin="echo https://www.linkedin.com/in/abdulwaheed-j-64561494|wl-copy"
@@ -11,7 +10,6 @@ alias man='man -P "less -Q"'
 alias kshow='kitty +kitten icat'
 alias c='clear'
 alias cls='clear'
-alias vi='nvim'
 alias ohmyzsh="helix ~/.oh-my-zsh"
 alias wanip="dig +short myip.opendns.com @resolver1.opendns.com"
 alias dd='dd status=progress'

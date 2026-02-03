@@ -40,3 +40,9 @@ vim.api.nvim_create_user_command("OpenPdf", function()
 	end
 end, {})
 vim.cmd([[cab cc CodeCompanion]])
+vim.api.nvim_create_autocmd("User", {
+	pattern = "MiniFilesActionRename",
+	callback = function(event)
+		Snacks.rename.on_rename_file(event.data.from, event.data.to)
+	end,
+})

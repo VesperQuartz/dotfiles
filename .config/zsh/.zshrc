@@ -1,4 +1,9 @@
 # Add deno completions to search path
+DISABLE_AUTO_UPDATE="true"
+DISABLE_MAGIC_FUNCTIONS="true"
+DISABLE_COMPFIX="true"
+ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE="20"
+ZSH_AUTOSUGGEST_USE_ASYNC=1
 if [[ ":$FPATH:" != *":/home/brown/.config/zsh/completions:"* ]]; then export FPATH="/home/brown/.config/zsh/completions:$FPATH"; fi
 typeset -g POWERLEVEL9K_INSTANT_PROMPT=off
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
@@ -17,7 +22,6 @@ source "${HOME}/.config/zsh/${Z_THEME}"
 
 
 autoload bashcompinit
-autoload -Uz tetriscurses
 bashcompinit
 
 
@@ -97,11 +101,9 @@ plugins=(
   zbell
   vi-mode
   zsh-autosuggestions
-  zsh-syntax-highlighting
 	rsync
   colorize
 	kubectl
-	postgres
 	minikube
 	direnv
   history-substring-search
@@ -112,11 +114,9 @@ plugins=(
   aws
   virtualenv
   archlinux
-  direnv
 	zoxide
-  copypath
-  gitignore
   colored-man-pages
+  zsh-syntax-highlighting
 )
 
 function j() {
@@ -132,7 +132,6 @@ source /opt/google-cloud-cli/completion.zsh.inc
 # User configuration
 #ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 export MANPATH="/usr/local/man:$MANPATH"
-source ${HOME}/.config/zsh/.zshenv
 
 # You may need to manually set your language environment
 
@@ -200,7 +199,6 @@ add-zsh-hook -Uz chpwd osc7
 # precmd() {
 #     print -Pn "\e]133;A\e\\"
 # }
-source /usr/share/nvm/init-nvm.sh
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 
@@ -236,12 +234,17 @@ fi
 if [ -f '/home/brown/app/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/brown/app/google-cloud-sdk/completion.zsh.inc'; fi
 setopt EXTENDED_HISTORY
 fpath=(/home/brown/.local/share/zsh-completion/completions $fpath) # avalanche completion
-rm -f ~/.zcompdump; compinit # avalanche completion
-autoload -U compinit; compinit
 autoload zmv
 
+autoload -Uz compinit
+if [ "$(date +'%j')" != "$(stat -f '%Sm' -t '%j' ~/.zcompdump 2>/dev/null)" ]; then
+    compinit
+else
+    compinit -C
+fi
 # add Pulumi to the PATH
 export PATH=$PATH:$HOME/.pulumi/bin
+export TERM=xterm-256color
 
 for file in "$HOME/.config/zsh/completions"/*; do
 	source "$file"
@@ -254,3 +257,5 @@ done
 . "$HOME/.deno/env"
 
 eval "$(zoxide init zsh)"
+eval "$(fnm env --use-on-cd --shell zsh)"
+source ${HOME}/.config/zsh/.zshenv

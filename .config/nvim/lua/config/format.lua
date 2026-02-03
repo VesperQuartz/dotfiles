@@ -7,6 +7,7 @@ require("conform").setup({
 		go = { "gofmt", lsp_format = "fallback" },
 		css = { "biome" },
 		json = { "biome" },
+		jsonc = { "biome" },
 		javascriptreact = { "biome", "biome-organize-imports" },
 		typescriptreact = { "biome", "biome-organize-imports" },
 		javascript = { "biome", "biome-organize-imports" },

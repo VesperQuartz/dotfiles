@@ -1,3 +1,4 @@
+-- local snacks = require("folke/snacks.nvim")
 return {
 	"folke/snacks.nvim",
 	priority = 1000,
@@ -7,7 +8,8 @@ return {
 		-- your configuration comes here
 		-- or leave it empty to use the default settings
 		-- refer to the configuration section below
-		bigfile = { enabled = true },
+		bigfile = { enabled = true, notify = true, size = 1.5 * 1024 * 1024 },
+		rename = { enabled = true },
 		dashboard = {
 			sections = {
 				{ section = "header" },
@@ -17,10 +19,14 @@ return {
 				{ section = "startup" },
 			},
 		},
-		notifier = { enabled = true },
+		notifier = { enabled = true, top_down = false },
 		notify = { enabled = true },
 		lazygit = { enabled = true },
 		quickfile = { enabled = true },
+		indent = { enabled = true },
+		input = { enabled = true },
+		gh = {},
+		words = { enabled = true },
 	},
 	keys = {},
 }

@@ -14,6 +14,7 @@ wezterm.on("restore_session", function(window)
 end)
 
 return {
+	term = "wezterm",
 	max_fps = 120,
 	enable_kitty_graphics = true,
 	front_end = "WebGpu",
