@@ -21,7 +21,7 @@ alias _i='sudo -i'
 alias please='sudo'
 alias rcopy='rsync -ah --progress'
 # alias cast='asciinema play'
-alias mouse='sudo modprobe -r psmouse && sudo modprobe psmouse'
+alias mouse='sudo modprobe -r psmouse && sudo modprobe psmouse && sudo modprobe -r i2c_hid_acpi && sudo modprobe i2c_hid_acpi'
 alias svn="svn --config-dir $XDG_CONFIG_HOME/subversion"
 alias wget=wget --hsts-file="$XDG_DATA_HOME/wget-hsts"
 alias gdb="gdb -q"
@@ -40,7 +40,7 @@ alias -s tsx='$EDITOR'
 alias -s json='jq .'
 
 ovpn() {
-  sudo openvpn "$HOME/Downloads/ovpn/nl-free-913043.protonvpn.tcp.ovpn"
+  sudo openvpn "$HOME/Downloads/ovpn/us-free-7.protonvpn.udp.ovpn"
 }
 
 setup-remix() {

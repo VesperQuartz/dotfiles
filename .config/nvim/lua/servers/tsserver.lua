@@ -1,9 +1,23 @@
 vim.lsp.enable("pbls")
-vim.lsp.enable("eslint")
+-- vim.lsp.enable("eslint")
 vim.lsp.enable("jsonls")
 vim.lsp.enable("prismals")
 vim.lsp.enable("prismals")
-vim.lsp.enable("vtsls")
+-- vim.lsp.enable("vtsls")
+
+vim.lsp.enable("tsgo")
+vim.lsp.enable("biome")
+vim.lsp.enable("oxlint")
+
+-- vim.lsp.enable("denols")
+vim.lsp.config("denols", {
+	root_dir = {
+		root = "deno.json?",
+		exclude = "package.json",
+	},
+})
+--
+--
 
 vim.lsp.config("jsonls", {
 	filetypes = {
@@ -26,50 +40,49 @@ vim.lsp.config("jsonls", {
 	},
 })
 
--- vim.lsp.enable("tsgo")
-vim.lsp.enable("biome")
-vim.lsp.enable("oxlint")
+vim.lsp.config("tsgo", {
+	single_file_support = false,
+	filetypes = {
+		"javascript",
+		"javascriptreact",
+		"javascript.jsx",
+		"typescript",
+		"typescriptreact",
+		"typescript.tsx",
+	},
+	root_markers = {
+		"tsconfig.json",
+		"jsconfig.json",
+		"package.json",
+		".git",
+		"tsconfig.base.json",
+	},
 
--- vim.lsp.enable("denols")
--- vim.lsp.config("denols", {
--- 	root_dir = root_pattern_excludes({
--- 		root = "deno.json?",
--- 		exclude = "package.json",
--- 	}),
--- })
---
---
+	handlers = {
+		source_definition = function(err, locations) end,
+		file_references = function(err, locations) end,
+		code_action = function(err, actions) end,
+	},
+	settings = {
+		typescript = {
+			inlayHints = {
+				parameterNames = { enabled = "literals" },
+				parameterTypes = { enabled = false },
+				variableTypes = { enabled = false },
+				propertyDeclarationTypes = { enabled = false },
+				functionLikeReturnTypes = { enabled = false },
+				enumMemberValues = { enabled = false },
+			},
+			preferences = {
+				quoteStyle = "double",
+				importModuleSpecifierPreference = "non-relative",
+				importModuleSpecifierEnding = "minimal",
+				importModuleSpecifier = "non-relative", -- Changed: removed "Preference"
+			},
+		},
+	},
+})
 
--- vim.lsp.config("tsgo", {
--- 	single_file_support = false,
--- 	filetypes = {
--- 		"javascript",
--- 		"javascriptreact",
--- 		"javascript.jsx",
--- 		"typescript",
--- 		"typescriptreact",
--- 		"typescript.tsx",
--- 	},
--- 	root_markers = {
--- 		"tsconfig.json",
--- 		"jsconfig.json",
--- 		"package.json",
--- 		".git",
--- 		"tsconfig.base.json",
--- 	},
---
--- 	handlers = {},
--- 	settings = {
--- 		typescript = {
--- 			preferences = {
--- 				quoteStyle = "double",
--- 				importModuleSpecifierPreference = "non-relative",
--- 				importModuleSpecifierEnding = "minimal",
--- 			},
--- 		},
--- 	},
--- })
---
 vim.lsp.config("vtsls", {
 	single_file_support = false,
 	handlers = {

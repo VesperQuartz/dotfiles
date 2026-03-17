@@ -17,12 +17,11 @@ set $up k
 set $right l
 # Your preferred terminal emulator
 set $term wezterm
-
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
-set $menu sirula
-
+set $menu sirula --toggle
+# set $menu ulauncher-toggle --no-window-shadow
 
 ### Output configuration
 #
@@ -217,7 +216,6 @@ assign [class="^qBittorrent$"] 8
 assign [class="^vlc$"] 5
 
 set $opacity 0.9
-for_window [app_id="^Alacritty$"] border none
 for_window [app_id="^alacritty$"] opacity $opacity
 for_window [app_id="^org.gnome.Nautilus$"] opacity $opacity
 for_window [app_id="^org.qbittorrent.qBittorrentorg$"] opacity $opacity
@@ -266,7 +264,7 @@ bindsym $mod+Return exec $term
 ##bindsym $mod+Return exec  wmctrl -x -a "alacritty" || $term -e tmux
 #bindsym $mod+Return exec  wezterm
 # bindsym $mod+Alt+h exec clipman pick --tool wofi -T'--prompt=my-prompt -i'
-bindsym $mod+Alt+h exec cliphist list | wofi -S dmenu | cliphist decode | wl-copy
+bindsym $mod+Alt+h exec clipman pick --tool bemenu --tool-args="-l 20 --nb '#222222' --nf '#aaaaaa' --sb '#005577' --sf '#ffffff' --fn 'Iosevka 20'"
 
 # Toggle workspace.
 bindsym $mod+Tab workspace back_and_forth
@@ -430,8 +428,11 @@ mode "resize" {
 }
 
 bindsym $mod+Shift+r mode "resize"
-bindsym Mod4+e exec emote
+bindsym $mod+e exec emote
 # exec_always autotiling
 exec_always wlsunset -l 9.076479 -L 7.398574
-exec wl-paste --watch cliphist store
+exec wl-paste -t text --watch clipman store --max-items=1000
 exec_always scripts/audio
+exec bash /home/brown/n8nsetup
+exec sirula --daemon
+# exec systemctl --user enable --now ulauncher

@@ -155,4 +155,8 @@ export GOOGLE_CLOUD_LOCATION="us-central1"
 export PATH="/run/user/1000/fnm_multishells/459778_1768777350220/bin":$PATH
 export QT_SCALE_FACTOR=2
 export QT_FONT_DPI=100
-
+export PATH=$PATH:$ANDROID_HOME/emulator
+export PATH=$PATH:$ANDROID_HOME/platform-tools
+export PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin
+export PATH=$PATH:$ANDROID_HOME/tools
+export PATH=$PATH:$ANDROID_HOME/tools/bin
